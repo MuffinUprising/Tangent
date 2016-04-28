@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="Room" representedClassName=".Room" syncable="YES">
+        <attribute name="ceilingMaterial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="doorArea" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="doorHeight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="doorMaterial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="doorWidth" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="floorMaterial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roomDepth" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="roomHeight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="roomName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roomVolume" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="roomWidth" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="wallMaterial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="windowArea" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="windowHeight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="windowMaterial" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="windowWidth" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Room" positionX="-63" positionY="-18" width="128" height="285"/>
+    </elements>
+</model>

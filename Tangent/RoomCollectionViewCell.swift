@@ -11,4 +11,5 @@ import UIKit
 class RoomCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var roomCellLabel: UILabel!
+    
 }

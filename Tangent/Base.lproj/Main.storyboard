@@ -1002,7 +1002,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="saveRoomToDB:" destination="2th-ZI-kfK" eventType="touchUpInside" id="8Oy-iF-LOM"/>
+                                    <action selector="saveRoom:" destination="2th-ZI-kfK" eventType="touchUpInside" id="HQp-ye-VwU"/>
                                     <segue destination="cXx-p8-tT6" kind="show" id="OiC-it-dTH"/>
                                 </connections>
                             </button>
@@ -1378,10 +1378,10 @@
             </objects>
             <point key="canvasLocation" x="1803" y="399"/>
         </scene>
-        <!--View Controller-->
+        <!--Room View Controller-->
         <scene sceneID="je1-hh-iOk">
             <objects>
-                <viewController id="cXx-p8-tT6" sceneMemberID="viewController">
+                <viewController id="cXx-p8-tT6" customClass="RoomViewController" customModule="Tangent" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lXM-h1-WeW"/>
                         <viewControllerLayoutGuide type="bottom" id="qhe-sV-jlG"/>
@@ -2539,7 +2539,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your preffered reverb time (in seconds)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-dT-skL">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your preferred reverb time (in seconds)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uvo-dT-skL">
                                         <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="482" id="5SD-Vw-sYw"/>
@@ -2603,6 +2603,9 @@
                                                 <include reference="YAv-0m-uZT"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="getRecommendation:" destination="cXx-p8-tT6" eventType="touchUpInside" id="i6L-iS-6BN"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recommendation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Md9-CA-uYQ">
                                         <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -2774,6 +2777,20 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="ceilingMaterialLabel" destination="lkf-NR-SF9" id="mRa-pH-zQd"/>
+                        <outlet property="doorAreaLabel" destination="PFe-NB-QVO" id="Hf2-wg-Mdv"/>
+                        <outlet property="doorMaterialLabel" destination="4Xs-dJ-Pz7" id="np9-wU-flA"/>
+                        <outlet property="floorMaterialLabel" destination="sgc-Ta-ERZ" id="1ed-1c-rei"/>
+                        <outlet property="modeImageView" destination="Uv1-FJ-sdU" id="FBt-Y5-xCx"/>
+                        <outlet property="roomDepthLabel" destination="IJ0-1u-duv" id="xbJ-q3-IUp"/>
+                        <outlet property="roomHeightLabel" destination="ca3-Cd-Gbj" id="bv6-ia-sYd"/>
+                        <outlet property="roomVolumeLabel" destination="tuj-sd-ynl" id="NYR-cX-h9x"/>
+                        <outlet property="roomWidthLabel" destination="Fd6-Qq-a3F" id="MdD-3a-4Eh"/>
+                        <outlet property="rt60Input" destination="d5H-qn-nTU" id="zhF-Li-59m"/>
+                        <outlet property="wallMaterialLabel" destination="p6h-42-AHY" id="RMO-HK-egl"/>
+                        <outlet property="windowAreaLabel" destination="zah-eD-QWi" id="c2t-yP-c6r"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j8E-lW-6gD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
