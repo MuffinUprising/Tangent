@@ -13,6 +13,8 @@
 		C926C6E51CD18088001D14AD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E41CD18088001D14AD /* DataController.swift */; };
 		C926C6E61CD18537001D14AD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C98B8F141CCFD2610034DCB6 /* libsqlite3.tbd */; };
 		C926C6E81CD18D59001D14AD /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E71CD18D59001D14AD /* RoomViewController.swift */; };
+		C926C6EB1CD191FE001D14AD /* Coefficient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E91CD191FE001D14AD /* Coefficient+CoreDataProperties.swift */; };
+		C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6EA1CD191FE001D14AD /* Coefficient.swift */; };
 		C927663C1CC9A85B003217D6 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927663B1CC9A85B003217D6 /* DataHelper.swift */; };
 		C927663E1CC9A8FB003217D6 /* absorption-coefficients.csv in Resources */ = {isa = PBXBuildFile; fileRef = C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */; };
 		C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F121CCFD0EC0034DCB6 /* DBController.swift */; };
@@ -36,6 +38,8 @@
 		C926C6E11CD1799F001D14AD /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		C926C6E41CD18088001D14AD /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataController.swift; path = ../DataController.swift; sourceTree = "<group>"; };
 		C926C6E71CD18D59001D14AD /* RoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
+		C926C6E91CD191FE001D14AD /* Coefficient+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Coefficient+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C926C6EA1CD191FE001D14AD /* Coefficient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coefficient.swift; sourceTree = "<group>"; };
 		C927663B1CC9A85B003217D6 /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "absorption-coefficients.csv"; sourceTree = "<group>"; };
 		C98B8F121CCFD0EC0034DCB6 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 		C9B232111CC5870B003105CF = {
 			isa = PBXGroup;
 			children = (
+				C926C6E91CD191FE001D14AD /* Coefficient+CoreDataProperties.swift */,
+				C926C6EA1CD191FE001D14AD /* Coefficient.swift */,
 				C926C6E01CD1799F001D14AD /* Room+CoreDataProperties.swift */,
 				C926C6E11CD1799F001D14AD /* Room.swift */,
 				C98B8F141CCFD2610034DCB6 /* libsqlite3.tbd */,
@@ -217,8 +223,10 @@
 				C9B232381CC6B5E8003105CF /* RoomCollectionViewCell.swift in Sources */,
 				C926C6DF1CD17617001D14AD /* TangentDataModel.xcdatamodeld in Sources */,
 				C98B8F251CCFD2FC0034DCB6 /* FMDatabaseAdditions.m in Sources */,
+				C926C6EB1CD191FE001D14AD /* Coefficient+CoreDataProperties.swift in Sources */,
 				C98B8F231CCFD2FC0034DCB6 /* FMResultSet.m in Sources */,
 				C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */,
+				C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */,
 				C926C6E51CD18088001D14AD /* DataController.swift in Sources */,
 				C98B8F221CCFD2FC0034DCB6 /* FMDatabase.m in Sources */,
 				C926C6E31CD1799F001D14AD /* Room.swift in Sources */,

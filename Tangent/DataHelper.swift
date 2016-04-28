@@ -7,30 +7,42 @@
 //
 
 import Foundation
+import CoreData
 
 class DataHelper {
     
     func parseCSV(){
         
+        // CSV
         let coefficientPath = NSBundle.mainBundle().pathForResource("absorption-coefficients", ofType: "csv")
         let pathString = try? String(contentsOfFile: coefficientPath!)
         let stringArray = pathString?.componentsSeparatedByString("\r")
         
+        // ** Core Data **
+        let moc = DataController().managedObjectContext
+        let entity = NSEntityDescription.insertNewObjectForEntityForName("Coefficient", inManagedObjectContext: moc) as! Coefficient
+        
         let delimiter = ","
-        var materials: [(materialType:String, oneTwentyFiveHz:String, twoFiftyHz:String, fiveHundredHz:String, onekHz:String, twokHz:String, fourkHz:String)]?
         
         for line in stringArray! {
             var values = line.componentsSeparatedByString(delimiter)
             
-            let item = (materialType: values[0], oneTwentyFiveHz: values[1], twoFiftyHz: values[2], fiveHundredHz: values[3], onekHz: values[4], twokHz: values[5], fourkHz: values[6])
-                print(item)
-                materials?.append(item)
+            let materialType = values[0]
+            let oneTwentyFiveHz = values[1]
+            let twoFiftyHz = values[2]
+            let fiveHundredHz = values[3]
+            let onekHz = values[4]
+            let twokHz = values[5]
+            let fourkHz = values[6]
+            
+            entity.type = materialType
+            print("adding: '\(materialType)'")
+            entity.oneTwentyFiveHz = Double(oneTwentyFiveHz)
+            entity.twoFiftyHz = Double(twoFiftyHz)
+            entity.fiveHundredHz = Double(fiveHundredHz)
+            entity.onekHz = Double(onekHz)
+            entity.twokHz = Double(twokHz)
+            entity.fourkHz = Double(fourkHz)
         }
-        if materials != nil {
-            for entry in materials! {
-                print(String(entry))
-            }
-        }
-        
     }
 }

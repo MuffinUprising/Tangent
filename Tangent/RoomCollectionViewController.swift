@@ -27,10 +27,10 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let dh = DataHelper()
-        seedRoom()
-        fetchRoom()
-        dh.parseCSV()
+//        let dh = DataHelper()
+//        seedRoom()
+//        fetchRoom()
+//        dh.parseCSV()
         
     }
 

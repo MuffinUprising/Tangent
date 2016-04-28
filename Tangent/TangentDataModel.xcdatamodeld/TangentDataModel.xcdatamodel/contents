@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+    <entity name="Coefficient" representedClassName=".Coefficient" syncable="YES">
+        <attribute name="fiveHundredHz" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="fourkHz" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="onekHz" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="oneTwentyFiveHz" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="twoFiftyHz" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="twokHz" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Room" representedClassName=".Room" syncable="YES">
         <attribute name="ceilingMaterial" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="doorArea" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -20,5 +29,6 @@
     </entity>
     <elements>
         <element name="Room" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="Coefficient" positionX="-45" positionY="117" width="128" height="150"/>
     </elements>
 </model>

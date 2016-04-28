@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class RoomViewController: UIViewController {
     
@@ -28,6 +29,21 @@ class RoomViewController: UIViewController {
     @IBAction func getRecommendation(sender: AnyObject) {
         
     }
+    
+    func fetchRoom() {
+        
+        let moc = DataController().managedObjectContext
+        let roomFetch = NSFetchRequest(entityName: "Room")
+        
+        do {
+            let fetchedRoom = try moc.executeFetchRequest(roomFetch) as! [Room]
+            
+            
+        } catch {
+            fatalError("Failed to fetch person: \(error)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
