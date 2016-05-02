@@ -115,7 +115,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
             }
             
         } catch {
-            fatalError("Failed to fetch person: \(error)")
+            fatalError("Failed to fetch room: \(error)")
         }
     }
     

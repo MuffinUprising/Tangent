@@ -26,44 +26,23 @@ class RoomViewController: UIViewController {
     
     @IBOutlet weak var rt60Input: UITextField!
     
+    @IBOutlet weak var roomInfoView: UIView!
+    
+    public var selectedRoom: Room?
+    
     @IBAction func getRecommendation(sender: AnyObject) {
         
     }
     
-    func fetchRoom() {
-        
-        let moc = DataController().managedObjectContext
-        let roomFetch = NSFetchRequest(entityName: "Room")
-        
-        do {
-            let fetchedRoom = try moc.executeFetchRequest(roomFetch) as! [Room]
-            
-            
-        } catch {
-            fatalError("Failed to fetch person: \(error)")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if let room = selectedRoom {
+            let height = String(room.roomHeight)
+            print(height)
+            roomHeightLabel.text = String(height)
+            print("Room Height: \(room.roomHeight)")
+            roomInfoView!.addSubview(roomHeightLabel)
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
