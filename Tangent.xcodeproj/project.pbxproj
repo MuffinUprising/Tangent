@@ -11,18 +11,12 @@
 		C926C6E21CD1799F001D14AD /* Room+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E01CD1799F001D14AD /* Room+CoreDataProperties.swift */; };
 		C926C6E31CD1799F001D14AD /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E11CD1799F001D14AD /* Room.swift */; };
 		C926C6E51CD18088001D14AD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E41CD18088001D14AD /* DataController.swift */; };
-		C926C6E61CD18537001D14AD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C98B8F141CCFD2610034DCB6 /* libsqlite3.tbd */; };
 		C926C6E81CD18D59001D14AD /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E71CD18D59001D14AD /* RoomViewController.swift */; };
 		C926C6EB1CD191FE001D14AD /* Coefficient+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E91CD191FE001D14AD /* Coefficient+CoreDataProperties.swift */; };
 		C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6EA1CD191FE001D14AD /* Coefficient.swift */; };
 		C927663C1CC9A85B003217D6 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927663B1CC9A85B003217D6 /* DataHelper.swift */; };
 		C927663E1CC9A8FB003217D6 /* absorption-coefficients.csv in Resources */ = {isa = PBXBuildFile; fileRef = C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */; };
 		C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F121CCFD0EC0034DCB6 /* DBController.swift */; };
-		C98B8F221CCFD2FC0034DCB6 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F191CCFD2FC0034DCB6 /* FMDatabase.m */; };
-		C98B8F231CCFD2FC0034DCB6 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F1B1CCFD2FC0034DCB6 /* FMResultSet.m */; };
-		C98B8F241CCFD2FC0034DCB6 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F1D1CCFD2FC0034DCB6 /* FMDatabaseQueue.m */; };
-		C98B8F251CCFD2FC0034DCB6 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F1F1CCFD2FC0034DCB6 /* FMDatabaseAdditions.m */; };
-		C98B8F261CCFD2FC0034DCB6 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F211CCFD2FC0034DCB6 /* FMDatabasePool.m */; };
 		C9B2321E1CC5870B003105CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2321D1CC5870B003105CF /* AppDelegate.swift */; };
 		C9B232231CC5870B003105CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B232211CC5870B003105CF /* Main.storyboard */; };
 		C9B232251CC5870B003105CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B232241CC5870B003105CF /* Assets.xcassets */; };
@@ -42,6 +36,7 @@
 		C926C6EA1CD191FE001D14AD /* Coefficient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coefficient.swift; sourceTree = "<group>"; };
 		C927663B1CC9A85B003217D6 /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "absorption-coefficients.csv"; sourceTree = "<group>"; };
+		C94116EB1CD818C8003E7524 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C98B8F121CCFD0EC0034DCB6 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
 		C98B8F141CCFD2610034DCB6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C98B8F161CCFD2FC0034DCB6 /* Tangent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tangent-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -72,7 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C926C6E61CD18537001D14AD /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +94,7 @@
 		C9B232111CC5870B003105CF = {
 			isa = PBXGroup;
 			children = (
+				C94116EB1CD818C8003E7524 /* libsqlite3.0.tbd */,
 				C926C6E91CD191FE001D14AD /* Coefficient+CoreDataProperties.swift */,
 				C926C6EA1CD191FE001D14AD /* Coefficient.swift */,
 				C926C6E01CD1799F001D14AD /* Room+CoreDataProperties.swift */,
@@ -215,20 +210,15 @@
 			files = (
 				C926C6E21CD1799F001D14AD /* Room+CoreDataProperties.swift in Sources */,
 				C9B232361CC6AC98003105CF /* RoomCollectionViewController.swift in Sources */,
-				C98B8F261CCFD2FC0034DCB6 /* FMDatabasePool.m in Sources */,
 				C9B232301CC58B15003105CF /* NewRoomViewController.swift in Sources */,
 				C927663C1CC9A85B003217D6 /* DataHelper.swift in Sources */,
 				C9B2321E1CC5870B003105CF /* AppDelegate.swift in Sources */,
-				C98B8F241CCFD2FC0034DCB6 /* FMDatabaseQueue.m in Sources */,
 				C9B232381CC6B5E8003105CF /* RoomCollectionViewCell.swift in Sources */,
 				C926C6DF1CD17617001D14AD /* TangentDataModel.xcdatamodeld in Sources */,
-				C98B8F251CCFD2FC0034DCB6 /* FMDatabaseAdditions.m in Sources */,
 				C926C6EB1CD191FE001D14AD /* Coefficient+CoreDataProperties.swift in Sources */,
-				C98B8F231CCFD2FC0034DCB6 /* FMResultSet.m in Sources */,
 				C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */,
 				C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */,
 				C926C6E51CD18088001D14AD /* DataController.swift in Sources */,
-				C98B8F221CCFD2FC0034DCB6 /* FMDatabase.m in Sources */,
 				C926C6E31CD1799F001D14AD /* Room.swift in Sources */,
 				C926C6E81CD18D59001D14AD /* RoomViewController.swift in Sources */,
 			);
