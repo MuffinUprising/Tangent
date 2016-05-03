@@ -28,7 +28,9 @@ class RoomViewController: UIViewController {
     
     @IBOutlet weak var roomInfoView: UIView!
     
-    public var selectedRoom: Room?
+    var roomName: String?
+    
+//    let roomHeight: Double
     
     @IBAction func getRecommendation(sender: AnyObject) {
         
@@ -37,12 +39,17 @@ class RoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let room = selectedRoom {
-            let height = String(room.roomHeight)
-            print(height)
-            roomHeightLabel.text = String(height)
-            print("Room Height: \(room.roomHeight)")
-            roomInfoView!.addSubview(roomHeightLabel)
+        if let name = roomName {
+            let moc = DataController().managedObjectContext
+            let roomsFetch = NSFetchRequest(entityName: "Room")
+            roomsFetch.predicate = NSPredicate(format: "roomName == %@", name)
+            
+            do {
+                let fetchedRooms = try moc.executeFetchRequest(roomsFetch) as! [Room]
+                print(fetchedRooms.first?.valueForKey("roomName"))
+            } catch {
+                fatalError("Failed to fetch rooms: \(error)")
+            }
         }
     }
 }

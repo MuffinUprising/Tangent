@@ -40,17 +40,6 @@
 		C98B8F121CCFD0EC0034DCB6 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
 		C98B8F141CCFD2610034DCB6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C98B8F161CCFD2FC0034DCB6 /* Tangent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tangent-Bridging-Header.h"; sourceTree = "<group>"; };
-		C98B8F171CCFD2FC0034DCB6 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = fmdb/src/fmdb/FMDB.h; sourceTree = SOURCE_ROOT; };
-		C98B8F181CCFD2FC0034DCB6 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = fmdb/src/fmdb/FMDatabase.h; sourceTree = SOURCE_ROOT; };
-		C98B8F191CCFD2FC0034DCB6 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = fmdb/src/fmdb/FMDatabase.m; sourceTree = SOURCE_ROOT; };
-		C98B8F1A1CCFD2FC0034DCB6 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = fmdb/src/fmdb/FMResultSet.h; sourceTree = SOURCE_ROOT; };
-		C98B8F1B1CCFD2FC0034DCB6 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = fmdb/src/fmdb/FMResultSet.m; sourceTree = SOURCE_ROOT; };
-		C98B8F1C1CCFD2FC0034DCB6 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = fmdb/src/fmdb/FMDatabaseQueue.h; sourceTree = SOURCE_ROOT; };
-		C98B8F1D1CCFD2FC0034DCB6 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = fmdb/src/fmdb/FMDatabaseQueue.m; sourceTree = SOURCE_ROOT; };
-		C98B8F1E1CCFD2FC0034DCB6 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = fmdb/src/fmdb/FMDatabaseAdditions.h; sourceTree = SOURCE_ROOT; };
-		C98B8F1F1CCFD2FC0034DCB6 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = fmdb/src/fmdb/FMDatabaseAdditions.m; sourceTree = SOURCE_ROOT; };
-		C98B8F201CCFD2FC0034DCB6 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = fmdb/src/fmdb/FMDatabasePool.h; sourceTree = SOURCE_ROOT; };
-		C98B8F211CCFD2FC0034DCB6 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = fmdb/src/fmdb/FMDatabasePool.m; sourceTree = SOURCE_ROOT; };
 		C9B2321A1CC5870B003105CF /* Tangent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tangent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B2321D1CC5870B003105CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9B232221CC5870B003105CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -73,22 +62,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C98B8F271CCFD3550034DCB6 /* DBSupportFiles */ = {
+		C94116EE1CD81B8B003E7524 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C98B8F171CCFD2FC0034DCB6 /* FMDB.h */,
-				C98B8F181CCFD2FC0034DCB6 /* FMDatabase.h */,
-				C98B8F191CCFD2FC0034DCB6 /* FMDatabase.m */,
-				C98B8F1A1CCFD2FC0034DCB6 /* FMResultSet.h */,
-				C98B8F1B1CCFD2FC0034DCB6 /* FMResultSet.m */,
-				C98B8F1C1CCFD2FC0034DCB6 /* FMDatabaseQueue.h */,
-				C98B8F1D1CCFD2FC0034DCB6 /* FMDatabaseQueue.m */,
-				C98B8F1E1CCFD2FC0034DCB6 /* FMDatabaseAdditions.h */,
-				C98B8F1F1CCFD2FC0034DCB6 /* FMDatabaseAdditions.m */,
-				C98B8F201CCFD2FC0034DCB6 /* FMDatabasePool.h */,
-				C98B8F211CCFD2FC0034DCB6 /* FMDatabasePool.m */,
+				C926C6E71CD18D59001D14AD /* RoomViewController.swift */,
+				C9B232371CC6B5E8003105CF /* RoomCollectionViewCell.swift */,
+				C9B2322F1CC58B15003105CF /* NewRoomViewController.swift */,
+				C9B232351CC6AC98003105CF /* RoomCollectionViewController.swift */,
 			);
-			name = DBSupportFiles;
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		C9B232111CC5870B003105CF = {
@@ -116,22 +98,18 @@
 		C9B2321C1CC5870B003105CF /* Tangent */ = {
 			isa = PBXGroup;
 			children = (
-				C98B8F271CCFD3550034DCB6 /* DBSupportFiles */,
 				C9B2321D1CC5870B003105CF /* AppDelegate.swift */,
 				C926C6DD1CD17617001D14AD /* TangentDataModel.xcdatamodeld */,
 				C9B232211CC5870B003105CF /* Main.storyboard */,
-				C9B232371CC6B5E8003105CF /* RoomCollectionViewCell.swift */,
+				C94116EE1CD81B8B003E7524 /* ViewControllers */,
 				C927663B1CC9A85B003217D6 /* DataHelper.swift */,
 				C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */,
 				C9B232241CC5870B003105CF /* Assets.xcassets */,
 				C9B232261CC5870B003105CF /* LaunchScreen.storyboard */,
 				C9B232291CC5870B003105CF /* Info.plist */,
-				C9B2322F1CC58B15003105CF /* NewRoomViewController.swift */,
 				C98B8F121CCFD0EC0034DCB6 /* DBController.swift */,
-				C9B232351CC6AC98003105CF /* RoomCollectionViewController.swift */,
 				C926C6E41CD18088001D14AD /* DataController.swift */,
 				C98B8F161CCFD2FC0034DCB6 /* Tangent-Bridging-Header.h */,
-				C926C6E71CD18D59001D14AD /* RoomViewController.swift */,
 			);
 			path = Tangent;
 			sourceTree = "<group>";

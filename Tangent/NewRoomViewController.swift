@@ -29,6 +29,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var doorMaterialPickerView: UIPickerView!
     
     var newRoom: Room?
+    var roomToDisplay: Room?
     
     //room variables
     var roomName: String = ""
@@ -72,20 +73,20 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         let moc = DataController().managedObjectContext
         
         //select entity and context to be targeted
-        let newRoom = NSEntityDescription.insertNewObjectForEntityForName("Room", inManagedObjectContext: moc) as! Room
+        newRoom = NSEntityDescription.insertNewObjectForEntityForName("Room", inManagedObjectContext: moc) as? Room
         
         //room name and dimensions
-        self.roomName = roomNameTextField.text!
-        self.roomWidth = Double(roomWidthTextField.text!)!
-        self.roomHeight = Double(roomHeightTextField.text!)!
-        self.roomDepth = Double(roomDepthTextField.text!)!
-        self.roomVolume = (roomWidth * roomHeight * roomDepth)
-        self.doorHeight = Double(doorHeightTextField.text!)!
-        self.doorWidth = Double(doorWidthTextField.text!)!
-        self.doorArea = Double(doorHeight * doorWidth)
-        self.windowHeight = Double(windowHeightTextField.text!)!
-        self.windowWidth = Double(windowWidthTextField.text!)!
-        self.windowArea = Double(windowHeight * windowWidth)
+        let roomName = roomNameTextField.text!
+        let roomWidth = Double(roomWidthTextField.text!)!
+        let roomHeight = Double(roomHeightTextField.text!)!
+        let roomDepth = Double(roomDepthTextField.text!)!
+        let roomVolume = (roomWidth * roomHeight * roomDepth)
+        let doorHeight = Double(doorHeightTextField.text!)!
+        let doorWidth = Double(doorWidthTextField.text!)!
+        let doorArea = Double(doorHeight * doorWidth)
+        let windowHeight = Double(windowHeightTextField.text!)!
+        let windowWidth = Double(windowWidthTextField.text!)!
+        let windowArea = Double(windowHeight * windowWidth)
         
         //pickerView materials
         
@@ -95,25 +96,33 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         let doorMaterial = doorMaterialList[selectedDoorMat]
         let windowMaterial = "Glass: window"
         
-        newRoom.setValue(roomName, forKey: "roomName")
-        newRoom.setValue(roomWidth, forKey: "roomWidth")
-        newRoom.setValue(roomHeight, forKey: "roomHeight")
-        newRoom.setValue(roomDepth, forKey: "roomDepth")
-        newRoom.setValue(roomVolume, forKey: "roomVolume")
-        newRoom.setValue(doorHeight, forKey: "doorHeight")
-        newRoom.setValue(doorWidth, forKey: "doorWidth")
-        newRoom.setValue(doorArea, forKey: "doorArea")
-        newRoom.setValue(windowWidth, forKey: "windowWidth")
-        newRoom.setValue(windowHeight, forKey: "windowHeight")
-        newRoom.setValue(windowArea, forKey: "windowArea")
+        newRoom!.setValue(roomName, forKey: "roomName")
+        newRoom!.setValue(roomWidth, forKey: "roomWidth")
+        newRoom!.setValue(roomHeight, forKey: "roomHeight")
+        newRoom!.setValue(roomDepth, forKey: "roomDepth")
+        newRoom!.setValue(roomVolume, forKey: "roomVolume")
+        newRoom!.setValue(doorHeight, forKey: "doorHeight")
+        newRoom!.setValue(doorWidth, forKey: "doorWidth")
+        newRoom!.setValue(doorArea, forKey: "doorArea")
+        newRoom!.setValue(windowWidth, forKey: "windowWidth")
+        newRoom!.setValue(windowHeight, forKey: "windowHeight")
+        newRoom!.setValue(windowArea, forKey: "windowArea")
 
-        newRoom.setValue(floorMaterial, forKey: "floorMaterial")
-        newRoom.setValue(wallMaterial, forKey: "wallMaterial")
-        newRoom.setValue(ceilingMaterial, forKey: "ceilingMaterial")
-        newRoom.setValue(doorMaterial, forKey: "doorMaterial")
-        newRoom.setValue(windowMaterial, forKey: "windowMaterial")
+        newRoom!.setValue(floorMaterial, forKey: "floorMaterial")
+        newRoom!.setValue(wallMaterial, forKey: "wallMaterial")
+        newRoom!.setValue(ceilingMaterial, forKey: "ceilingMaterial")
+        newRoom!.setValue(doorMaterial, forKey: "doorMaterial")
+        newRoom!.setValue(windowMaterial, forKey: "windowMaterial")
+        print("newRoom name: " + String(newRoom?.roomName))
         
-        performSegueWithIdentifier("saveRoom", sender: nil)
+        
+        do {
+            try moc.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+//        performSegueWithIdentifier("saveRoom", sender: self)
     }
     
     override func viewDidLoad() {
@@ -128,7 +137,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.ceilingMaterialPickerView.dataSource = self
         self.doorMaterialPickerView.delegate = self
         self.doorMaterialPickerView.dataSource = self
-        self.roomName = roomNameTextField.text!
+        
     }
     
     //** PICKER VIEW **
@@ -201,7 +210,8 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
      //In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let newView = segue.destinationViewController as? RoomViewController
-        newView?.roomHeightLabel.text = String(newRoom?.roomHeight!)
+        newView?.roomName = self.roomName
+//        print("newView.selectedRoom.roomHeight: " + String(newView?.selectedRoom?.roomHeight))
         
     }
 }
