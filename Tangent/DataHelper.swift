@@ -38,11 +38,17 @@ class DataHelper {
             entity.type = materialType
             print("adding: '\(materialType)'")
             entity.oneTwentyFiveHz = Double(oneTwentyFiveHz)
+            print("adding: '\(oneTwentyFiveHz)'")
             entity.twoFiftyHz = Double(twoFiftyHz)
+            print("adding: '\(twoFiftyHz)'")
             entity.fiveHundredHz = Double(fiveHundredHz)
+            print("adding: '\(fiveHundredHz)'")
             entity.onekHz = Double(onekHz)
+            print("adding: '\(onekHz)'")
             entity.twokHz = Double(twokHz)
+            print("adding: '\(twokHz)'")
             entity.fourkHz = Double(fourkHz)
+            print("adding: '\(fourkHz)'")
         }
     }
 }

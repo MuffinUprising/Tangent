@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C91DE2691CDA6BAE00C967A7 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91DE2681CDA6BAE00C967A7 /* Calculator.swift */; };
+		C91DE26C1CDA9AA700C967A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C91DE26A1CDA9AA700C967A7 /* Main.storyboard */; };
+		C91DE2921CDACAFE00C967A7 /* ModeGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91DE2911CDACAFE00C967A7 /* ModeGraphView.swift */; };
+		C91DE2941CDBBBE000C967A7 /* ModeHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91DE2931CDBBBE000C967A7 /* ModeHelpView.swift */; };
+		C91DE2971CDBC93900C967A7 /* ModeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91DE2961CDBC93900C967A7 /* ModeContainerView.swift */; };
 		C926C6DF1CD17617001D14AD /* TangentDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C926C6DD1CD17617001D14AD /* TangentDataModel.xcdatamodeld */; };
 		C926C6E21CD1799F001D14AD /* Room+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E01CD1799F001D14AD /* Room+CoreDataProperties.swift */; };
 		C926C6E31CD1799F001D14AD /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6E11CD1799F001D14AD /* Room.swift */; };
@@ -18,7 +23,6 @@
 		C927663E1CC9A8FB003217D6 /* absorption-coefficients.csv in Resources */ = {isa = PBXBuildFile; fileRef = C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */; };
 		C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F121CCFD0EC0034DCB6 /* DBController.swift */; };
 		C9B2321E1CC5870B003105CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2321D1CC5870B003105CF /* AppDelegate.swift */; };
-		C9B232231CC5870B003105CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B232211CC5870B003105CF /* Main.storyboard */; };
 		C9B232251CC5870B003105CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B232241CC5870B003105CF /* Assets.xcassets */; };
 		C9B232281CC5870B003105CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9B232261CC5870B003105CF /* LaunchScreen.storyboard */; };
 		C9B232301CC58B15003105CF /* NewRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2322F1CC58B15003105CF /* NewRoomViewController.swift */; };
@@ -27,6 +31,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C91DE2681CDA6BAE00C967A7 /* Calculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		C91DE26B1CDA9AA700C967A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C91DE2911CDACAFE00C967A7 /* ModeGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeGraphView.swift; sourceTree = "<group>"; };
+		C91DE2931CDBBBE000C967A7 /* ModeHelpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeHelpView.swift; sourceTree = "<group>"; };
+		C91DE2961CDBC93900C967A7 /* ModeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeContainerView.swift; sourceTree = "<group>"; };
 		C926C6DE1CD17617001D14AD /* TangentDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TangentDataModel.xcdatamodel; sourceTree = "<group>"; };
 		C926C6E01CD1799F001D14AD /* Room+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Room+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C926C6E11CD1799F001D14AD /* Room.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -42,7 +51,6 @@
 		C98B8F161CCFD2FC0034DCB6 /* Tangent-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tangent-Bridging-Header.h"; sourceTree = "<group>"; };
 		C9B2321A1CC5870B003105CF /* Tangent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tangent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B2321D1CC5870B003105CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C9B232221CC5870B003105CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C9B232241CC5870B003105CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9B232271CC5870B003105CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9B232291CC5870B003105CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,6 +70,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C91DE2951CDBBC0200C967A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C91DE2911CDACAFE00C967A7 /* ModeGraphView.swift */,
+				C91DE2931CDBBBE000C967A7 /* ModeHelpView.swift */,
+				C91DE2961CDBC93900C967A7 /* ModeContainerView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		C94116EE1CD81B8B003E7524 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,7 +118,8 @@
 			children = (
 				C9B2321D1CC5870B003105CF /* AppDelegate.swift */,
 				C926C6DD1CD17617001D14AD /* TangentDataModel.xcdatamodeld */,
-				C9B232211CC5870B003105CF /* Main.storyboard */,
+				C91DE26A1CDA9AA700C967A7 /* Main.storyboard */,
+				C91DE2951CDBBC0200C967A7 /* Views */,
 				C94116EE1CD81B8B003E7524 /* ViewControllers */,
 				C927663B1CC9A85B003217D6 /* DataHelper.swift */,
 				C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */,
@@ -110,6 +129,7 @@
 				C98B8F121CCFD0EC0034DCB6 /* DBController.swift */,
 				C926C6E41CD18088001D14AD /* DataController.swift */,
 				C98B8F161CCFD2FC0034DCB6 /* Tangent-Bridging-Header.h */,
+				C91DE2681CDA6BAE00C967A7 /* Calculator.swift */,
 			);
 			path = Tangent;
 			sourceTree = "<group>";
@@ -175,7 +195,7 @@
 				C9B232281CC5870B003105CF /* LaunchScreen.storyboard in Resources */,
 				C927663E1CC9A8FB003217D6 /* absorption-coefficients.csv in Resources */,
 				C9B232251CC5870B003105CF /* Assets.xcassets in Resources */,
-				C9B232231CC5870B003105CF /* Main.storyboard in Resources */,
+				C91DE26C1CDA9AA700C967A7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,11 +212,15 @@
 				C927663C1CC9A85B003217D6 /* DataHelper.swift in Sources */,
 				C9B2321E1CC5870B003105CF /* AppDelegate.swift in Sources */,
 				C9B232381CC6B5E8003105CF /* RoomCollectionViewCell.swift in Sources */,
+				C91DE2941CDBBBE000C967A7 /* ModeHelpView.swift in Sources */,
 				C926C6DF1CD17617001D14AD /* TangentDataModel.xcdatamodeld in Sources */,
 				C926C6EB1CD191FE001D14AD /* Coefficient+CoreDataProperties.swift in Sources */,
 				C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */,
+				C91DE2921CDACAFE00C967A7 /* ModeGraphView.swift in Sources */,
+				C91DE2691CDA6BAE00C967A7 /* Calculator.swift in Sources */,
 				C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */,
 				C926C6E51CD18088001D14AD /* DataController.swift in Sources */,
+				C91DE2971CDBC93900C967A7 /* ModeContainerView.swift in Sources */,
 				C926C6E31CD1799F001D14AD /* Room.swift in Sources */,
 				C926C6E81CD18D59001D14AD /* RoomViewController.swift in Sources */,
 			);
@@ -205,10 +229,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C9B232211CC5870B003105CF /* Main.storyboard */ = {
+		C91DE26A1CDA9AA700C967A7 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C9B232221CC5870B003105CF /* Base */,
+				C91DE26B1CDA9AA700C967A7 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

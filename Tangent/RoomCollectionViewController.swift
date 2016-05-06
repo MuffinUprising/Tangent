@@ -14,53 +14,50 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     @IBOutlet weak var roomCollectionView: UICollectionView!
     
     private let reuseIdentifier = "RoomCell"
-    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
+    var roomID: NSManagedObjectID?
+    var roomName: String?
+    var cvfl: UICollectionViewFlowLayout?
+    var room: Room?
+    var helper: DataHelper?
     
-    private var roomCollection = [Room]()
-//    private let room = Room()
+    private var roomCollection = [String]()
     
+    //perform segue when room is selected from list
     var selectedRoom = 0 {
         didSet {
-            performSegueWithIdentifier("RoomCell", sender: self)
+            performSegueWithIdentifier("showSavedRoom", sender: nil)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let dh = DataHelper()
-//        seedRoom()
-//        fetchRoom()
-//        dh.parseCSV()
-        
+        cvfl?.sectionHeadersPinToVisibleBounds = true
+        clearCoefficientDB()
+        addCoefficientsToDB()
+        fetchRooms()
+        fetchCoefficients()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func roomForIndexPath(indexPath: NSIndexPath) -> Room {
+    //** COLLECTION VIEW **
+    func roomForIndexPath(indexPath: NSIndexPath) -> String {
         return roomCollection[indexPath.row]
     }
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectedRoom = indexPath.row
+        self.selectedRoom = indexPath.row
     }
-    
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1    }
-    
+        return 1
+    }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return roomCollection.count
     }
-    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = roomCollectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RoomCollectionViewCell
-        let room = roomForIndexPath(indexPath)
-        cell.backgroundColor = UIColor.blackColor()
-        cell.roomCellLabel.text = room.roomName
+        cell.roomCellLabel.text = roomCollection[indexPath.row]
         return cell
     }
+    
     
     // ** CORE DATA **
     // add test data
@@ -102,16 +99,119 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
+    //parse csv file, convert Hz values to NSNumber(Double) and add to CoreData
+    func addCoefficientsToDB(){
+        
+        // CSV
+        let coefficientPath = NSBundle.mainBundle().pathForResource("absorption-coefficients", ofType: "csv")
+        let pathString = try? String(contentsOfFile: coefficientPath!)
+        let stringArray = pathString?.componentsSeparatedByString("\r")
+        
+        // ** Core Data **
+        let moc = DataController().managedObjectContext
+        let entity = NSEntityDescription.insertNewObjectForEntityForName("Coefficient", inManagedObjectContext: moc) as! Coefficient
+        
+        let delimiter = ","
+        
+        //iterate through csv file
+        for line in stringArray! {
+            var values = line.componentsSeparatedByString(delimiter)
+            
+            // set material type for material
+            let materialType = values[0]
+            entity.setValue(materialType, forKey: "type")
+            print("adding: '\(materialType)'")
+            
+            //set 125Hz
+            if let oneTwentyFiveHz = Double(values[1]) {
+                let oneTwentyFiveNumber = NSNumber(double: oneTwentyFiveHz)
+                entity.setValue(oneTwentyFiveNumber, forKey: "oneTwentyFiveHz")
+                print("added 125Hz value: '\(oneTwentyFiveNumber)'")
+                
+            } else {
+                print("Error inporting 125Hz: value was not a number")
+            }
+            //set 250Hz
+            if let twoFiftyHz = Double(values[2]) {
+                let twoFiftyNumber = NSNumber(double: twoFiftyHz)
+                entity.setValue(twoFiftyNumber, forKey: "twoFiftyHz")
+                print("added 250Hz value: '\(twoFiftyNumber)'")
+                
+            } else {
+                print("Error inporting 250Hz. value was not a number")
+            }
+            
+            //set 500Hz
+            if let fiveHundredHz = Double(values[3]) {
+                let fiveHundredNumber = NSNumber(double:fiveHundredHz)
+                entity.setValue(fiveHundredHz, forKey: "fiveHundredHz")
+                print("added 500Hz value: '\(fiveHundredNumber)'")
+                
+            } else {
+                print("Error inporting 500Hz: value was not a number")
+            }
+            
+            //set 1kHz
+            if let onekHz = Double(values[4]) {
+                let oneKNumber = NSNumber(double:onekHz)
+                entity.setValue(oneKNumber, forKey: "onekHz")
+                print("added 1kHz value: '\(onekHz)'")
+
+            } else {
+                print("Error inporting 1kHz: value was not a number")
+            }
+            
+            //set 2kHz
+            if let twokHz = Double(values[5]) {
+                let twokNumber = NSNumber(double:twokHz)
+                entity.setValue(twokNumber, forKey: "twokHz")
+                print("added 2kHz value: '\(twokHz)'")
+                
+            } else {
+                print("Error inporting 2kHz: value was not a number")
+            }
+            
+            //set 4kHz
+            if let fourkHz = Double(values[6]) {
+                let fourKNumber = NSNumber(double:fourkHz)
+                entity.setValue(fourKNumber, forKey: "fourkHz")
+                print("added 4kHz value: '\(fourkHz)'")
+                
+            } else {
+                print("Error inporting 4kHz: value was not a number")
+            }
+            
+            //save db
+            do {
+                try moc.save()
+                print("Entry \(line) saved.")
+            } catch {
+                fatalError("failure saving Coefficient DB: \(error)")
+            }
+        }
+        
+    }
+
+    
     // retrieve entry
-    func fetchRoom() {
+    func fetchRooms() {
         let moc = DataController().managedObjectContext
         let roomFetch = NSFetchRequest(entityName: "Room")
         
         do {
             let fetchedRoom = try moc.executeFetchRequest(roomFetch) as! [Room]
-            print(fetchedRoom.first!.roomName!)
+
             for room in fetchedRoom {
-                roomCollection.append(room)
+                
+//                print("fault- \(room)")
+                
+                if let name = room.valueForKey("roomName") {
+                    print("Room Name: \(name)")
+                    roomCollection.append(String(name))
+                }
+//                print("results: \(room)")
+                
+                
             }
             
         } catch {
@@ -119,10 +219,65 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
+    //clear coefficient database -- for data integrity testing
+    func clearCoefficientDB() {
+        let moc = DataController().managedObjectContext
+        let fetchRequest = NSFetchRequest(entityName: "Coefficient")
+        
+        do {
+            let fetchedEntities = try moc.executeFetchRequest(fetchRequest)
+            for entity in fetchedEntities {
+                print("deleting entity: \(entity.valueForKey("type"))")
+                moc.deleteObject(entity as! NSManagedObject)
+            }
+        } catch {
+            fatalError("no entry found: \(error)")
+        }
+        
+        do {
+            try moc.save()
+        } catch {
+            fatalError("Could not save Coefficients DB: \(error)")
+        }
+    }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if let navView = segue.destinationViewController as? UINavigationController {
-//            let newView = navView.viewControllers[0] as? RoomViewController
-//            newView!.room = roomCollection[selectedRoom]
-//    }
+    //retrieve coefficients
+    func fetchCoefficients() {
+        let moc = DataController().managedObjectContext
+        let coefficientFetch = NSFetchRequest(entityName: "Coefficient")
+        
+        do {
+            let fetchedCoefficients = try moc.executeFetchRequest(coefficientFetch) as! [Coefficient]
+            print("fetched coefficients: \(fetchedCoefficients)")
+            if fetchedCoefficients.isEmpty {
+                print("Material coefficient database is empty D:")
+            } else {
+                for material in fetchedCoefficients {
+                    print("fault- \(material)")
+                    if let type = material.valueForKey("type") {
+                        print("Material type: \(type)")
+                    }
+                    print("results: \(material)")
+                }
+            }
+        } catch {
+            fatalError("Failed to fetch material coefficients: \(error)")
+        }
+    }
+    
+    //boilerplate fuctions
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    //prepare for segue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let newView = segue.destinationViewController as? RoomViewController {
+            
+            newView.roomName = roomCollection[selectedRoom]
+            print("sending room: \(newView.roomName!)")
+        }
+    }
+        
 }

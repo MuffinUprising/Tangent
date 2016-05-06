@@ -29,29 +29,30 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var doorMaterialPickerView: UIPickerView!
     
     var newRoom: Room?
-    var roomToDisplay: Room?
+    var sentName: String?
     
     //room variables
-    var roomName: String = ""
-    var roomHeight: Double = 0.0
-    var roomWidth: Double = 0.0
-    var roomDepth: Double = 0.0
-    var doorHeight: Double = 0.0
-    var doorWidth: Double = 0.0
-    var windowHeight: Double = 0.0
-    var windowWidth: Double = 0.0
+    var roomID: NSManagedObjectID?
+    var roomName: String?
+    var roomHeight: Double?
+    var roomWidth: Double?
+    var roomDepth: Double?
+    var doorHeight: Double?
+    var doorWidth: Double?
+    var windowHeight: Double?
+    var windowWidth: Double?
     
     //calculated variables
-    var roomVolume: Double = 0.0
-    var doorArea: Double = 0.0
-    var windowArea: Double = 0.0
+    var roomVolume: Double?
+    var doorArea: Double?
+    var windowArea: Double?
     
     //pickerView variables
-    var wallMaterial: String = ""
-    var floorMaterial: String = ""
-    var ceilingMaterial: String = ""
-    var doorMaterial: String = ""
-    var windowMaterial: String = ""
+    var wallMaterial: String?
+    var floorMaterial: String?
+    var ceilingMaterial: String?
+    var doorMaterial: String?
+    var windowMaterial: String?
     
     // pickerView variables
     var selectedRoom: Int = -1
@@ -62,12 +63,12 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     var roomDBPath = NSString()
     
-    var floorMaterialList = ["concrete on tile", "linoleum/vinyl tile on concrete", "wood on joists", "parquet on concrete", "carpet on concrete", "carpet on foam"]
+    var floorMaterialList = ["Concrete on tile", "Linoleum/vinyl tile on concrete", "Wood on joists", "Parquet on concrete", "Carpet on concrete", "Carpet on foam"]
     var wallMaterialList = ["Brick: unglazed", "Brick: unglazed & painted", "Concrete block - coarse", "Concrete block - painted", "Curtain: 10 oz/sq yd fabric molleton", "Curtain: 14 oz/sq yd fabric molleton", "Curtain: 18 oz/sq yd fabric molleton", "Fiberglass: 2\'\' 703 no airspace", "Fiberglass: spray 5\'\'", "Fiberglass: spray 1\'\'", "Fiberglass: 2\'\' rolls", "Foam: Sonex 2\'\'", "Foam: SDG 3\'\'", "Foam: SDG 4\'\'", "Foam: polyur. 1\'\'", "Foam: polyur. 1/2\'\'", "Glass: 1/4\'\' plate large", "Glass: window", "Plaster: smooth on tile/brick", "Plaster: rough on lath", "Marble/Tile", "Sheetrock 1/2\" 16\" on center", "Wood: 3/8\'\' plywood panel"]
-    var ceilingMaterialList = ["Acoustic Tiles", "Acoustic Ceiling Tiles", "Fiberglass: 2\'\' 703 no airspace", "Fiberglass: spray 5\"", "Fiberglass: spray 1\"", "Fiberglass: 2\'\' rolls", "wood", "Foam: Sonex 2\'\'", "Foam: SDG 3\'\'", "Foam: SDG 4\'\'", "Foam: polyur. 1\'\'", "Foam: polyur. 1/2\'\'", "Plaster: smooth on tile/brick", "Plaster: rough on lath", "Sheetrock 1/2” 16\" on center", "Wood: 3/8\" plywood panel"]
-    var doorMaterialList = ["wood", "Glass: 1/4\'\' plate large"]
+    var ceilingMaterialList = ["Acoustic Tiles", "Acoustic Ceiling Tiles", "Fiberglass: 2\'\' 703 no airspace", "Fiberglass: spray 5\"", "Fiberglass: spray 1\"", "Fiberglass: 2\'\' rolls", "Wood", "Foam: Sonex 2\'\'", "Foam: SDG 3\'\'", "Foam: SDG 4\'\'", "Foam: polyur. 1\'\'", "Foam: polyur. 1/2\'\'", "Plaster: smooth on tile/brick", "Plaster: rough on lath", "Sheetrock 1/2” 16\" on center", "Wood: 3/8\" plywood panel"]
+    var doorMaterialList = ["Wood", "Glass: 1/4\'\' plate large"]
     
-    @IBAction func saveRoom(sender: AnyObject) {
+    func saveRoom() {
         
         //create an instance of managedObjectContext
         let moc = DataController().managedObjectContext
@@ -107,20 +108,23 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         newRoom!.setValue(windowWidth, forKey: "windowWidth")
         newRoom!.setValue(windowHeight, forKey: "windowHeight")
         newRoom!.setValue(windowArea, forKey: "windowArea")
-
         newRoom!.setValue(floorMaterial, forKey: "floorMaterial")
         newRoom!.setValue(wallMaterial, forKey: "wallMaterial")
         newRoom!.setValue(ceilingMaterial, forKey: "ceilingMaterial")
         newRoom!.setValue(doorMaterial, forKey: "doorMaterial")
         newRoom!.setValue(windowMaterial, forKey: "windowMaterial")
-        print("newRoom name: " + String(newRoom?.roomName))
-        
         
         do {
             try moc.save()
+            
         } catch {
             fatalError("Failure to save context: \(error)")
         }
+        
+        print("newRoom name: " + String(newRoom?.roomName))
+        roomID = (newRoom?.objectID)
+        sentName = (newRoom?.roomName)
+        print("sending id: \(String(roomID))")
         
 //        performSegueWithIdentifier("saveRoom", sender: self)
     }
@@ -146,6 +150,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         return 1
     }
     
+    
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case wallMaterialPickerView:
@@ -164,6 +169,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
+    
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == wallMaterialPickerView {
             return wallMaterialList.count
@@ -181,6 +187,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             return 0
         }
     }
+    
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
@@ -204,14 +211,15 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         // Dispose of any resources that can be recreated.
     }
 
-    
+
     // MARK: - Navigation
 
      //In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        saveRoom()
         let newView = segue.destinationViewController as? RoomViewController
-        newView?.roomName = self.roomName
-//        print("newView.selectedRoom.roomHeight: " + String(newView?.selectedRoom?.roomHeight))
+        newView!.roomID = self.roomID
+        newView!.roomName = self.sentName
         
     }
 }
