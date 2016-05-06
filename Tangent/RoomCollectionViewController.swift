@@ -33,10 +33,10 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         cvfl?.sectionHeadersPinToVisibleBounds = true
-        clearCoefficientDB()
-        addCoefficientsToDB()
+//        clearCoefficientDB()
+//        addCoefficientsToDB()
         fetchRooms()
-        fetchCoefficients()
+//        fetchCoefficients()
     }
 
     //** COLLECTION VIEW **
@@ -109,12 +109,13 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
         
         // ** Core Data **
         let moc = DataController().managedObjectContext
-        let entity = NSEntityDescription.insertNewObjectForEntityForName("Coefficient", inManagedObjectContext: moc) as! Coefficient
+        
         
         let delimiter = ","
         
         //iterate through csv file
         for line in stringArray! {
+            let entity = NSEntityDescription.insertNewObjectForEntityForName("Coefficient", inManagedObjectContext: moc) as! Coefficient
             var values = line.componentsSeparatedByString(delimiter)
             
             // set material type for material
@@ -129,8 +130,9 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 print("added 125Hz value: '\(oneTwentyFiveNumber)'")
                 
             } else {
-                print("Error inporting 125Hz: value was not a number")
+                print("Error importing 125Hz: value was not a number")
             }
+            
             //set 250Hz
             if let twoFiftyHz = Double(values[2]) {
                 let twoFiftyNumber = NSNumber(double: twoFiftyHz)
@@ -138,7 +140,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 print("added 250Hz value: '\(twoFiftyNumber)'")
                 
             } else {
-                print("Error inporting 250Hz. value was not a number")
+                print("Error importing 250Hz. value was not a number")
             }
             
             //set 500Hz
@@ -148,7 +150,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 print("added 500Hz value: '\(fiveHundredNumber)'")
                 
             } else {
-                print("Error inporting 500Hz: value was not a number")
+                print("Error importing 500Hz: value was not a number")
             }
             
             //set 1kHz
@@ -158,7 +160,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 print("added 1kHz value: '\(onekHz)'")
 
             } else {
-                print("Error inporting 1kHz: value was not a number")
+                print("Error importing 1kHz: value was not a number")
             }
             
             //set 2kHz
@@ -168,7 +170,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 print("added 2kHz value: '\(twokHz)'")
                 
             } else {
-                print("Error inporting 2kHz: value was not a number")
+                print("Error importing 2kHz: value was not a number")
             }
             
             //set 4kHz
@@ -178,7 +180,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 print("added 4kHz value: '\(fourkHz)'")
                 
             } else {
-                print("Error inporting 4kHz: value was not a number")
+                print("Error importing 4kHz: value was not a number")
             }
             
             //save db
@@ -193,7 +195,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     }
 
     
-    // retrieve entry
+    // retrieve rooms
     func fetchRooms() {
         let moc = DataController().managedObjectContext
         let roomFetch = NSFetchRequest(entityName: "Room")

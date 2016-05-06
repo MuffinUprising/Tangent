@@ -76,7 +76,6 @@ import CoreData
     var depthModes: [Double] = []
     
     var wallAbsorption: [Double] = []
-//    let roomHeight: Double
     
     @IBAction func getRecommendation(sender: AnyObject) {
         
@@ -85,7 +84,6 @@ import CoreData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        print("received name: \(roomName)")
         //managed object context
         let moc = DataController().managedObjectContext
         //initialize fetch request
@@ -102,17 +100,9 @@ import CoreData
             if (result.count > 0) {
                 
                 for room in result {
-//                    print("Room name: \(room.roomName), id: \(room.valueForKey!("objectID"))")
-                
                     if room.roomName == roomName {
-//                        print("fault- \(room)")
-                    
-//                        if let name = room.valueForKey("roomName") {
-//                            print("Room Name: \(name)")
-//                        }
                         selectedRoom = (room as! Room)
                         populateRoomDetailView()
-//                        print("results: \(room)")
                     }
                 }
             }

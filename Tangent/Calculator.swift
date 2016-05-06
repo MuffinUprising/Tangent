@@ -68,16 +68,10 @@ class Calculator {
     var doorCoeffients: [Double]?
     
     //absorption list
-    var wallAbsorption: [Double]?
+//    var wallAbsorption: [Double]?
     var floorAbsorption: [Double]?
     var ceilingAbsorption: [Double]?
     var doorAbsorption: [Double]?
-    
-    
-    //TODO: set up initializers
-//    init() {
-//        
-//    }
     
     
     // ** MODES **
@@ -86,29 +80,24 @@ class Calculator {
         heightModes = []
         heightModesRounded = []
         let height = Double(roomHeight)
-//        print("Room height: \(roomHeight)")
         
         //fundamental mode
         // each mode after is the fundamental mode * multiplier
         let roomFundamental = Double(563.5 / height)
         heightModes!.append(roomFundamental)
-//        print("height fundamental added: \(roomFundamental)")
         var currentMode = roomFundamental
         var modeMultiplier =  2.0
         
         //multipier counts up by one each time until it hits 300Hz
-        while currentMode <= 300 {
+        while currentMode < (300 - roomFundamental) {
             let mode: Double = (roomFundamental * modeMultiplier)
             heightModes!.append(mode)
-//            print("height mode appended: \(mode)")
             modeMultiplier += 1
             currentMode = mode
         }
         print("Height modes calculated")
         for mode in self.heightModes! {
-//            print("height mode: \(mode)")
             let roundedMode = round(mode)
-//            print("rounded height mode: \(roundedMode)")
             heightModesRounded?.append(roundedMode)
             
         }
@@ -121,29 +110,24 @@ class Calculator {
         widthModes = []
         widthModesRounded = []
         let width = Double(roomWidth)
-//        print("Room width: \(roomWidth)")
         
         //fundamental mode
         // each mode after is the fundamental mode * multiplier
         let roomFundamental = Double(563.5 / width)
         widthModes!.append(roomFundamental)
-//        print("width fundamental added: \(roomFundamental)")
         var currentMode = roomFundamental
         var modeMultiplier =  2.0
         
         //multipier counts up by one each time until it hits 300Hz
-        while currentMode <= 300 {
+        while currentMode <= (300 - roomFundamental) {
             let mode: Double = (roomFundamental * modeMultiplier)
             widthModes!.append(mode)
-//            print("width mode appended: \(mode)")
             modeMultiplier += 1
             currentMode = mode
         }
         print("Width modes calculated")
         for mode in self.widthModes! {
-//            print("mode: \(mode)")
             let roundedMode = round(mode)
-//            print("rounded width mode: \(roundedMode)")
             widthModesRounded?.append(roundedMode)
         }
         return widthModesRounded!
@@ -154,29 +138,24 @@ class Calculator {
         depthModes = []
         depthModesRounded = []
         let depth = Double(roomDepth)
-//        print("Room depth: \(roomDepth)")
         
         //fundamental mode
         // each mode after is the fundamental mode * multiplier
         let roomFundamental = Double(563.5 / depth)
         depthModes?.append(roomFundamental)
-//        print("depth fundamental added: \(roomFundamental)")
         var currentMode = roomFundamental
         var modeMultiplier =  2.0
         
         //multipier counts up by one each time until it hits 300Hz
-        while currentMode <= 300 {
+        while currentMode <= (300 - roomFundamental) {
             let mode: Double = (roomFundamental * modeMultiplier)
             depthModes!.append(mode)
-//            print("depth mode appended: \(mode)")
             modeMultiplier += 1
             currentMode = mode
         }
         print("Depth modes calculated")
         for mode in self.depthModes! {
-//            print("mode: \(mode)")
             let roundedMode = round(mode)
-//            print("rounded depth mode: \(roundedMode)")
             depthModesRounded?.append(roundedMode)
         }
         return depthModesRounded!
@@ -187,8 +166,6 @@ class Calculator {
     // WALL
     func getWallAbsorption (roomHeight: Double, roomWidth: Double, roomDepth: Double, roomVolume: Double, wallMaterial: String) -> [Double] {
         //get coefficients list from db
-//        if let id = wallID {
-//            print("received material id: \(id))")
             //managed object context
             let moc = DataController().managedObjectContext
             //fetch request
@@ -196,7 +173,8 @@ class Calculator {
             //entity description
             let entityDescription = NSEntityDescription.entityForName("Coefficient", inManagedObjectContext: moc)
             materialFetchRequest.entity = entityDescription
-            
+            var wallAbsorption: [Double] = []
+        
             //execute request
             do {
                 let result = try moc.executeFetchRequest(materialFetchRequest)
@@ -204,9 +182,8 @@ class Calculator {
                 
                 if (result.count > 0) {
                     for coefficient in result {
-                        print("material: \(coefficient.type) 125Hz: \(coefficient.valueForKey("oneTwentyFiveHz")) 250Hz: \(coefficient.valueForKey("twoFiftyHz")) 500Hz: \(coefficient.valueForKey("fiveHundredHz")) 1kHz: \(coefficient.valueForKey("onekHz")) 2kHz: \(coefficient.valueForKey("twokHz")) 4kHz: \(coefficient.valueForKey("fourkHz"))")
                         if coefficient.type == wallMaterial {
-                            print("fault- \(coefficient)")
+//                            print("fault- \(coefficient)")
                             
                             if let type = coefficient.valueForKey("type") {
                                 print("Material type: \(type)")
@@ -215,7 +192,7 @@ class Calculator {
                             print("results: \(coefficient)")
                             
                             let wallMatType = self.wallMaterial?.type
-                            print("wall material: \(wallMatType)")
+                            print("wall material: \(wallMatType! as String)")
                             var wallCoefficients = [Double]()
                             let wall125 = self.wallMaterial?.oneTwentyFiveHz as! Double
                             wallCoefficients.append(wall125)
@@ -236,15 +213,12 @@ class Calculator {
                             wallCoefficients.append(wall4k)
                             print("wall4k: \(wall4k)")
                             
-                            //starting frequency = 125
-//                            var freq = 125
-                            
                             //retrieve room h/w/d and area
                             let height = Double(roomHeight)
                             let depth = Double(roomDepth)
                             let width = Double(roomWidth)
                             let volume = Double(roomVolume)
-                            print("height: \(height), depth: \(depth), width: \(width), volume\(volume)")
+                            print("height: \(height), depth: \(depth), width: \(width), volume: \(volume)")
                             
                             //wall area1 = h * l
                             let wallArea1 = height * depth
@@ -266,10 +240,10 @@ class Calculator {
                                 let rt60 = (0.049 * volume) / absorption
                                 print("rt60: \(rt60)")
                                 //add to absorption list
-                                wallAbsorption?.append(rt60)
-                                //double frequency
-//                                freq = freq * 2
+                                wallAbsorption.append(rt60)
                             }
+                        } else {
+                            continue
                         }
                     }
                 } else {
@@ -280,17 +254,17 @@ class Calculator {
             } catch {
                 let fetchError = error as NSError
                 print(fetchError)
-
-//            }
-            
         }
-        return wallAbsorption!
+        for item in wallAbsorption {
+            print("wall absorption: \(item)")
+        }
+        return wallAbsorption
     }
     
     
     // FLOOR
     func getFloorAbsorption() {
-    
+        
     }
     
     // CEILING

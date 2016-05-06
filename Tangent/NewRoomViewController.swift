@@ -150,7 +150,6 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         return 1
     }
     
-    
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView {
         case wallMaterialPickerView:
@@ -168,7 +167,6 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             break
         }
     }
-    
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == wallMaterialPickerView {
@@ -188,7 +186,6 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
-    
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch pickerView {
         case wallMaterialPickerView:
@@ -205,7 +202,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     
-    // default functions
+    // boilerplate functions
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -220,6 +217,5 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         let newView = segue.destinationViewController as? RoomViewController
         newView!.roomID = self.roomID
         newView!.roomName = self.sentName
-        
     }
 }
