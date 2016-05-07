@@ -76,6 +76,10 @@ import CoreData
     var depthModes: [Double] = []
     
     var wallAbsorption: [Double] = []
+    var floorAbsorption: [Double] = []
+    var ceilingAbsorption: [Double] = []
+    var doorAbsorption: [Double] = []
+    var windowAbsorption: [Double] = []
     
     @IBAction func getRecommendation(sender: AnyObject) {
         
@@ -141,6 +145,24 @@ import CoreData
         for rt60 in wallAbsorption {
             print("rt60: \(rt60)")
         }
+        //get floor absorption
+        self.floorAbsorption = calc.getFloorAbsorption(self.roomWidth! , roomDepth: self.roomDepth!, roomVolume: self.roomVolume!, floorMaterial: self.floorMaterial!)
+        print("returned floor absorption:")
+        for rt60 in floorAbsorption {
+            print("rt60: \(rt60)")
+        }
+        //get ceiling absorption
+        self.ceilingAbsorption = calc.getCeilingAbsorption(self.roomWidth!, roomDepth: self.roomDepth!, roomVolume: self.roomVolume!, ceilingMaterial: self.ceilingMaterial!)
+        print("returned ceiling absorption:")
+        for rt60 in ceilingAbsorption {
+            print("rt60: \(rt60)")
+        }
+        //get door absorption
+        self.doorAbsorption = calc.getDoorAbsorption(self.doorHeight!, doorWidth: self.doorWidth!, roomVolume: self.roomVolume!, doorMaterial: self.doorMaterial!)
+        print("returned door absorption:")
+        for rt60 in doorAbsorption {
+            print("rt60: \(rt60)")
+        }
         
     }
     
@@ -171,10 +193,26 @@ import CoreData
         }
         if (selectedRoom?.roomVolume) != nil {
             self.roomVolume = (selectedRoom!.valueForKey("roomVolume") as! Double)
-            print("roomVolume: \(roomVolume)")
         }
         if (selectedRoom?.wallMaterial) != nil {
             self.wallMaterial = (selectedRoom!.wallMaterial as String!)
+        }
+        if (selectedRoom?.floorMaterial) != nil {
+            self.floorMaterial = (selectedRoom!.floorMaterial as String!)
+        }
+        if (selectedRoom?.ceilingMaterial) != nil {
+            self.ceilingMaterial = (selectedRoom!.ceilingMaterial as String!)
+        }
+        if (selectedRoom?.doorHeight) != nil {
+            self.doorHeight = (selectedRoom!.doorHeight as! Double)
+        }
+        if (selectedRoom?.doorWidth) != nil {
+            self.doorWidth = (selectedRoom!.doorWidth as! Double)
+        }
+        if (selectedRoom?.doorMaterial) != nil {
+            self.doorMaterial = (selectedRoom!.doorMaterial as String!)
+        } else {
+            print("Door material not found D:")
         }
         
 

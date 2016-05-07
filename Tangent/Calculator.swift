@@ -67,8 +67,8 @@ class Calculator {
     var ceilingCoefficients: [Double]?
     var doorCoeffients: [Double]?
     
-    //absorption list
-//    var wallAbsorption: [Double]?
+    //absorption lists
+    var wallAbsorption: [Double]?
     var floorAbsorption: [Double]?
     var ceilingAbsorption: [Double]?
     var doorAbsorption: [Double]?
@@ -232,13 +232,13 @@ class Calculator {
                             for coefficient in wallCoefficients {
                                 //coefficient = coefficient
                                 let c = coefficient
-                                print("coefficient: \(c)")
+                                print("wall coefficient: \(c)")
                                 //absorption = total area * coefficient
                                 let absorption = (totalArea * c)
-                                print("absorption: \(absorption)")
+                                print("wall absorption: \(absorption)")
                                 //rt60 = (0.05 * volume) / absorption
                                 let rt60 = (0.049 * volume) / absorption
-                                print("rt60: \(rt60)")
+                                print("wall rt60: \(rt60)")
                                 //add to absorption list
                                 wallAbsorption.append(rt60)
                             }
@@ -258,22 +258,289 @@ class Calculator {
         for item in wallAbsorption {
             print("wall absorption: \(item)")
         }
+        self.wallAbsorption = wallAbsorption
         return wallAbsorption
     }
     
     
     // FLOOR
-    func getFloorAbsorption() {
+    func getFloorAbsorption(roomWidth: Double, roomDepth: Double, roomVolume: Double, floorMaterial: String) -> [Double] {
+        //get coefficients list from db
+        //managed object context
+        let moc = DataController().managedObjectContext
+        //fetch request
+        let materialFetchRequest = NSFetchRequest(entityName: "Coefficient")
+        //entity description
+        let entityDescription = NSEntityDescription.entityForName("Coefficient", inManagedObjectContext: moc)
+        materialFetchRequest.entity = entityDescription
+        var floorAbsorption: [Double] = []
         
+        //execute request
+        do {
+            let result = try moc.executeFetchRequest(materialFetchRequest)
+//            print("result: \(result)")
+            print("floor material: \(floorMaterial)")
+            if (result.count > 0) {
+                for coefficient in result {
+                    if coefficient.type == floorMaterial {
+                        
+                        if let type = coefficient.valueForKey("type") {
+                            print("Material type: \(type)")
+                        }
+                        self.floorMaterial = (coefficient as! Coefficient)
+                        print("results: \(coefficient)")
+                        
+                        let floorMatType = self.floorMaterial?.type
+                        print("floor material: \(floorMatType! as String)")
+                        var floorCoefficients = [Double]()
+                        let floor125 = self.floorMaterial?.oneTwentyFiveHz as! Double
+                        floorCoefficients.append(floor125)
+                        print("floor125: \(floor125)")
+                        let floor250 = self.floorMaterial?.twoFiftyHz as! Double
+                        floorCoefficients.append(floor250)
+                        print("floor250: \(floor250)")
+                        let floor500 = self.floorMaterial?.fiveHundredHz as! Double
+                        floorCoefficients.append(floor500)
+                        print("floor500: \(floor500)")
+                        let floor1k = self.floorMaterial?.onekHz as! Double
+                        floorCoefficients.append(floor1k)
+                        print("floor1k: \(floor1k)")
+                        let floor2k = self.floorMaterial?.twokHz as! Double
+                        floorCoefficients.append(floor2k)
+                        print("floor2k: \(floor2k)")
+                        let floor4k = self.floorMaterial?.fourkHz as! Double
+                        floorCoefficients.append(floor4k)
+                        print("floor4k: \(floor4k)")
+                        
+                        //retrieve room w/d and volume
+                        let depth = Double(roomDepth)
+                        let width = Double(roomWidth)
+                        let volume = Double(roomVolume)
+                        print("depth: \(depth), width: \(width), volume: \(volume)")
+                        
+                        //floor area
+                        let totalArea = width * depth
+                    
+                        print("total floor area: \(totalArea)")
+                        
+                        //for coefficient in list..
+                        for coefficient in floorCoefficients {
+                            //coefficient = coefficient
+                            let c = coefficient
+                            print("floor coefficient: \(c)")
+                            //absorption = total area * coefficient
+                            let absorption = (totalArea * c)
+                            print("floor absorption: \(absorption)")
+                            //rt60 = (0.05 * volume) / absorption
+                            let rt60 = (0.049 * volume) / absorption
+                            print("floor rt60: \(rt60)")
+                            //add to absorption list
+                            floorAbsorption.append(rt60)
+                        }
+                    } else {
+                        continue
+                    }
+                }
+            } else {
+                print("error loading coefficient database")
+            }
+            
+        } catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        for item in floorAbsorption {
+            print("floor absorption: \(item)")
+        }
+        self.floorAbsorption = floorAbsorption
+        return floorAbsorption
     }
     
     // CEILING
-    func getCeilingAbsorption() {
+    func getCeilingAbsorption(roomWidth: Double, roomDepth: Double, roomVolume: Double, ceilingMaterial: String) -> [Double] {
+        //get coefficients list from db
+        //managed object context
+        let moc = DataController().managedObjectContext
+        //fetch request
+        let materialFetchRequest = NSFetchRequest(entityName: "Coefficient")
+        //entity description
+        let entityDescription = NSEntityDescription.entityForName("Coefficient", inManagedObjectContext: moc)
+        materialFetchRequest.entity = entityDescription
+        var ceilingAbsorption: [Double] = []
         
+        //execute request
+        do {
+            let result = try moc.executeFetchRequest(materialFetchRequest)
+            //            print("result: \(result)")
+            print("ceiling material: \(ceilingMaterial)")
+            if (result.count > 0) {
+                for coefficient in result {
+                    if coefficient.type == ceilingMaterial {
+                        
+                        if let type = coefficient.valueForKey("type") {
+                            print("Material type: \(type)")
+                        }
+                        self.ceilingMaterial = (coefficient as! Coefficient)
+                        print("results: \(coefficient)")
+                        
+                        let ceilingMatType = self.ceilingMaterial?.type
+                        print("ceiling material: \(ceilingMatType! as String)")
+                        var ceilingCoefficients = [Double]()
+                        let ceiling125 = self.ceilingMaterial?.oneTwentyFiveHz as! Double
+                        ceilingCoefficients.append(ceiling125)
+                        print("ceiling125: \(ceiling125)")
+                        let ceiling250 = self.ceilingMaterial?.twoFiftyHz as! Double
+                        ceilingCoefficients.append(ceiling250)
+                        print("ceiling250: \(ceiling250)")
+                        let ceiling500 = self.ceilingMaterial?.fiveHundredHz as! Double
+                        ceilingCoefficients.append(ceiling500)
+                        print("ceiling500: \(ceiling500)")
+                        let ceiling1k = self.ceilingMaterial?.onekHz as! Double
+                        ceilingCoefficients.append(ceiling1k)
+                        print("ceiling1k: \(ceiling1k)")
+                        let ceiling2k = self.ceilingMaterial?.twokHz as! Double
+                        ceilingCoefficients.append(ceiling2k)
+                        print("ceiling2k: \(ceiling2k)")
+                        let ceiling4k = self.ceilingMaterial?.fourkHz as! Double
+                        ceilingCoefficients.append(ceiling4k)
+                        print("ceiling4k: \(ceiling4k)")
+                        
+                        //retrieve room w/d and volume
+                        let depth = Double(roomDepth)
+                        let width = Double(roomWidth)
+                        let volume = Double(roomVolume)
+                        print("depth: \(depth), width: \(width), volume: \(volume)")
+                        
+                        //ceiling area
+                        let totalArea = width * depth
+                        
+                        print("total ceiling area: \(totalArea)")
+                        
+                        //for coefficient in list..
+                        for coefficient in ceilingCoefficients {
+                            //coefficient = coefficient
+                            let c = coefficient
+                            print("ceiling coefficient: \(c)")
+                            //absorption = total area * coefficient
+                            let absorption = (totalArea * c)
+                            print("ceiling absorption: \(absorption)")
+                            //rt60 = (0.05 * volume) / absorption
+                            let rt60 = (0.049 * volume) / absorption
+                            print("ceiling rt60: \(rt60)")
+                            //add to absorption list
+                            ceilingAbsorption.append(rt60)
+                        }
+                    } else {
+                        continue
+                    }
+                }
+            } else {
+                print("error loading coefficient database")
+            }
+            
+        } catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        for item in ceilingAbsorption {
+            print("ceiling absorption: \(item)")
+        }
+        self.ceilingAbsorption = ceilingAbsorption
+        return ceilingAbsorption
+
     }
     
     // DOOR
-    func getDoorAbsorption() {
+    func getDoorAbsorption(doorHeight: Double, doorWidth: Double, roomVolume: Double, doorMaterial: String) -> [Double] {
+        //get coefficients list from db
+        //managed object context
+        let moc = DataController().managedObjectContext
+        //fetch request
+        let materialFetchRequest = NSFetchRequest(entityName: "Coefficient")
+        //entity description
+        let entityDescription = NSEntityDescription.entityForName("Coefficient", inManagedObjectContext: moc)
+        materialFetchRequest.entity = entityDescription
+        var doorAbsorption: [Double] = []
+        
+        //execute request
+        do {
+            let result = try moc.executeFetchRequest(materialFetchRequest)
+            //            print("result: \(result)")
+            print("door material: \(doorMaterial)")
+            if (result.count > 0) {
+                for coefficient in result {
+                    if coefficient.type == doorMaterial {
+                        
+                        if let type = coefficient.valueForKey("type") {
+                            print("Material type: \(type)")
+                        }
+                        self.doorMaterial = (coefficient as! Coefficient)
+                        print("results: \(coefficient)")
+                        
+                        let doorMatType = self.doorMaterial?.type
+                        print("door material: \(doorMatType! as String)")
+                        var doorCoefficients = [Double]()
+                        let door125 = self.doorMaterial?.oneTwentyFiveHz as! Double
+                        doorCoefficients.append(door125)
+                        print("door125: \(door125)")
+                        let door250 = self.doorMaterial?.twoFiftyHz as! Double
+                        doorCoefficients.append(door250)
+                        print("door250: \(door250)")
+                        let door500 = self.doorMaterial?.fiveHundredHz as! Double
+                        doorCoefficients.append(door500)
+                        print("door500: \(door500)")
+                        let door1k = self.doorMaterial?.onekHz as! Double
+                        doorCoefficients.append(door1k)
+                        print("door1k: \(door1k)")
+                        let door2k = self.doorMaterial?.twokHz as! Double
+                        doorCoefficients.append(door2k)
+                        print("door2k: \(door2k)")
+                        let door4k = self.doorMaterial?.fourkHz as! Double
+                        doorCoefficients.append(door4k)
+                        print("door4k: \(door4k)")
+                        
+                        //retrieve room w/d and volume
+                        let height = Double(doorHeight)
+                        let width = Double(doorWidth)
+                        let volume = Double(roomVolume)
+                        print("door height: \(height), width: \(width), room volume: \(volume)")
+                        
+                        //door area
+                        let totalArea = width * height
+                        
+                        print("total door area: \(totalArea)")
+                        
+                        //for coefficient in list..
+                        for coefficient in doorCoefficients {
+                            //coefficient = coefficient
+                            let c = coefficient
+                            print("door coefficient: \(c)")
+                            //absorption = total area * coefficient
+                            let absorption = (totalArea * c)
+                            print("door absorption: \(absorption)")
+                            //rt60 = (0.05 * volume) / absorption
+                            let rt60 = (0.049 * volume) / absorption
+                            print("door rt60: \(rt60)")
+                            //add to absorption list
+                            doorAbsorption.append(rt60)
+                        }
+                    } else {
+                        continue
+                    }
+                }
+            } else {
+                print("error loading coefficient database")
+            }
+            
+        } catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        for item in doorAbsorption {
+            print("door absorption: \(item)")
+        }
+        self.doorAbsorption = doorAbsorption
+        return doorAbsorption
         
     }
     

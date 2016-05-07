@@ -102,6 +102,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     //parse csv file, convert Hz values to NSNumber(Double) and add to CoreData
     func addCoefficientsToDB(){
         
+        
         // CSV
         let coefficientPath = NSBundle.mainBundle().pathForResource("absorption-coefficients", ofType: "csv")
         let pathString = try? String(contentsOfFile: coefficientPath!)
