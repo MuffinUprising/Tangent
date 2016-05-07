@@ -163,6 +163,11 @@ import CoreData
         for rt60 in doorAbsorption {
             print("rt60: \(rt60)")
         }
+        //get window absorption
+        self.windowAbsorption = calc.getWindowAbsorption(self.windowHeight!, windowWidth: self.windowWidth!, roomVolume: self.roomVolume!, windowMaterial: self.windowMaterial!)
+        for rt60 in windowAbsorption {
+            print("rt60: \(rt60)")
+        }
         
     }
     
@@ -211,8 +216,15 @@ import CoreData
         }
         if (selectedRoom?.doorMaterial) != nil {
             self.doorMaterial = (selectedRoom!.doorMaterial as String!)
-        } else {
-            print("Door material not found D:")
+        }
+        if (selectedRoom?.windowMaterial) != nil {
+            self.windowMaterial = (selectedRoom!.windowMaterial as String!)
+        }
+        if (selectedRoom?.windowHeight) != nil {
+            self.windowHeight = (selectedRoom!.windowHeight as! Double)
+        }
+        if (selectedRoom?.windowWidth) != nil {
+            self.windowWidth = (selectedRoom!.windowWidth as! Double)
         }
         
 

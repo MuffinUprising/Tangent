@@ -72,6 +72,7 @@ class Calculator {
     var floorAbsorption: [Double]?
     var ceilingAbsorption: [Double]?
     var doorAbsorption: [Double]?
+    var windowAbsorption: [Double]?
     
     
     // ** MODES **
@@ -236,7 +237,7 @@ class Calculator {
                                 //absorption = total area * coefficient
                                 let absorption = (totalArea * c)
                                 print("wall absorption: \(absorption)")
-                                //rt60 = (0.05 * volume) / absorption
+                                //rt60 = (0.049 * volume) / absorption
                                 let rt60 = (0.049 * volume) / absorption
                                 print("wall rt60: \(rt60)")
                                 //add to absorption list
@@ -331,7 +332,7 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("floor absorption: \(absorption)")
-                            //rt60 = (0.05 * volume) / absorption
+                            //rt60 = (0.049 * volume) / absorption
                             let rt60 = (0.049 * volume) / absorption
                             print("floor rt60: \(rt60)")
                             //add to absorption list
@@ -424,7 +425,7 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("ceiling absorption: \(absorption)")
-                            //rt60 = (0.05 * volume) / absorption
+                            //rt60 = (0.049 * volume) / absorption
                             let rt60 = (0.049 * volume) / absorption
                             print("ceiling rt60: \(rt60)")
                             //add to absorption list
@@ -518,7 +519,7 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("door absorption: \(absorption)")
-                            //rt60 = (0.05 * volume) / absorption
+                            //rt60 = (0.049 * volume) / absorption
                             let rt60 = (0.049 * volume) / absorption
                             print("door rt60: \(rt60)")
                             //add to absorption list
@@ -545,7 +546,97 @@ class Calculator {
     }
     
     // WINDOW
-    func getWindowAbsorption() {
+    func getWindowAbsorption(windowHeight: Double, windowWidth: Double, roomVolume: Double, windowMaterial: String) -> [Double] {
+        //get coefficients list from db
+        //managed object context
+        let moc = DataController().managedObjectContext
+        //fetch request
+        let materialFetchRequest = NSFetchRequest(entityName: "Coefficient")
+        //entity description
+        let entityDescription = NSEntityDescription.entityForName("Coefficient", inManagedObjectContext: moc)
+        materialFetchRequest.entity = entityDescription
+        var windowAbsorption: [Double] = []
+        
+        //execute request
+        do {
+            let result = try moc.executeFetchRequest(materialFetchRequest)
+            //            print("result: \(result)")
+            print("window material: \(doorMaterial)")
+            if (result.count > 0) {
+                for coefficient in result {
+                    if coefficient.type == windowMaterial {
+                        
+                        if let type = coefficient.valueForKey("type") {
+                            print("Material type: \(type)")
+                        }
+                        self.windowMaterial = (coefficient as! Coefficient)
+                        print("results: \(coefficient)")
+                        
+                        let windowMatType = self.windowMaterial?.type
+                        print("window material: \(windowMatType! as String)")
+                        var windowCoefficients = [Double]()
+                        let window125 = self.windowMaterial?.oneTwentyFiveHz as! Double
+                        windowCoefficients.append(window125)
+                        print("window125: \(window125)")
+                        let window250 = self.windowMaterial?.twoFiftyHz as! Double
+                        windowCoefficients.append(window250)
+                        print("window250: \(window250)")
+                        let window500 = self.windowMaterial?.fiveHundredHz as! Double
+                        windowCoefficients.append(window500)
+                        print("window500: \(window500)")
+                        let window1k = self.windowMaterial?.onekHz as! Double
+                        windowCoefficients.append(window1k)
+                        print("window1k: \(window1k)")
+                        let window2k = self.windowMaterial?.twokHz as! Double
+                        windowCoefficients.append(window2k)
+                        print("window2k: \(window2k)")
+                        let window4k = self.windowMaterial?.fourkHz as! Double
+                        windowCoefficients.append(window4k)
+                        print("door4k: \(window4k)")
+                        
+                        //retrieve room w/d and volume
+                        let height = Double(windowHeight)
+                        let width = Double(windowWidth)
+                        let volume = Double(roomVolume)
+                        print("window height: \(height), width: \(width), room volume: \(volume)")
+                        
+                        //door area
+                        let totalArea = width * height
+                        
+                        print("total window area: \(totalArea)")
+                        
+                        //for coefficient in list..
+                        for coefficient in windowCoefficients {
+                            //coefficient = coefficient
+                            let c = coefficient
+                            print("window coefficient: \(c)")
+                            //absorption = total area * coefficient
+                            let absorption = (totalArea * c)
+                            print("window absorption: \(absorption)")
+                            //rt60 = (0.049 * volume) / absorption
+                            let rt60 = (0.049 * volume) / absorption
+                            print("window rt60: \(rt60)")
+                            //add to absorption list
+                            windowAbsorption.append(rt60)
+                        }
+                    } else {
+                        continue
+                    }
+                }
+            } else {
+                print("error loading coefficient database")
+            }
+            
+        } catch {
+            let fetchError = error as NSError
+            print(fetchError)
+        }
+        for item in windowAbsorption {
+            print("window absorption: \(item)")
+        }
+        self.windowAbsorption = windowAbsorption
+        return windowAbsorption
+
         
     }
     
