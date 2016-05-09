@@ -21,6 +21,8 @@
 		C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926C6EA1CD191FE001D14AD /* Coefficient.swift */; };
 		C927663C1CC9A85B003217D6 /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C927663B1CC9A85B003217D6 /* DataHelper.swift */; };
 		C927663E1CC9A8FB003217D6 /* absorption-coefficients.csv in Resources */ = {isa = PBXBuildFile; fileRef = C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */; };
+		C9383F691CDED16900001A98 /* rt60TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9383F681CDED16900001A98 /* rt60TableViewCell.swift */; };
+		C9383F6B1CDED9C000001A98 /* Rt60TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9383F6A1CDED9C000001A98 /* Rt60TableViewController.swift */; };
 		C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98B8F121CCFD0EC0034DCB6 /* DBController.swift */; };
 		C9B2321E1CC5870B003105CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B2321D1CC5870B003105CF /* AppDelegate.swift */; };
 		C9B232251CC5870B003105CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9B232241CC5870B003105CF /* Assets.xcassets */; };
@@ -45,6 +47,8 @@
 		C926C6EA1CD191FE001D14AD /* Coefficient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coefficient.swift; sourceTree = "<group>"; };
 		C927663B1CC9A85B003217D6 /* DataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
 		C927663D1CC9A8FB003217D6 /* absorption-coefficients.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "absorption-coefficients.csv"; sourceTree = "<group>"; };
+		C9383F681CDED16900001A98 /* rt60TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rt60TableViewCell.swift; sourceTree = "<group>"; };
+		C9383F6A1CDED9C000001A98 /* Rt60TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rt60TableViewController.swift; sourceTree = "<group>"; };
 		C94116EB1CD818C8003E7524 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		C98B8F121CCFD0EC0034DCB6 /* DBController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBController.swift; sourceTree = "<group>"; };
 		C98B8F141CCFD2610034DCB6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -73,9 +77,11 @@
 		C91DE2951CDBBC0200C967A7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C9B232371CC6B5E8003105CF /* RoomCollectionViewCell.swift */,
 				C91DE2911CDACAFE00C967A7 /* ModeGraphView.swift */,
 				C91DE2931CDBBBE000C967A7 /* ModeHelpView.swift */,
 				C91DE2961CDBC93900C967A7 /* ModeContainerView.swift */,
+				C9383F681CDED16900001A98 /* rt60TableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -84,9 +90,9 @@
 			isa = PBXGroup;
 			children = (
 				C926C6E71CD18D59001D14AD /* RoomViewController.swift */,
-				C9B232371CC6B5E8003105CF /* RoomCollectionViewCell.swift */,
 				C9B2322F1CC58B15003105CF /* NewRoomViewController.swift */,
 				C9B232351CC6AC98003105CF /* RoomCollectionViewController.swift */,
+				C9383F6A1CDED9C000001A98 /* Rt60TableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -216,9 +222,11 @@
 				C926C6DF1CD17617001D14AD /* TangentDataModel.xcdatamodeld in Sources */,
 				C926C6EB1CD191FE001D14AD /* Coefficient+CoreDataProperties.swift in Sources */,
 				C98B8F131CCFD0EC0034DCB6 /* DBController.swift in Sources */,
+				C9383F6B1CDED9C000001A98 /* Rt60TableViewController.swift in Sources */,
 				C91DE2921CDACAFE00C967A7 /* ModeGraphView.swift in Sources */,
 				C91DE2691CDA6BAE00C967A7 /* Calculator.swift in Sources */,
 				C926C6EC1CD191FE001D14AD /* Coefficient.swift in Sources */,
+				C9383F691CDED16900001A98 /* rt60TableViewCell.swift in Sources */,
 				C926C6E51CD18088001D14AD /* DataController.swift in Sources */,
 				C91DE2971CDBC93900C967A7 /* ModeContainerView.swift in Sources */,
 				C926C6E31CD1799F001D14AD /* Room.swift in Sources */,

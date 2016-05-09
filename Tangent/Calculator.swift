@@ -73,6 +73,22 @@ class Calculator {
     var ceilingAbsorption: [Double]?
     var doorAbsorption: [Double]?
     var windowAbsorption: [Double]?
+//    var totalAbsorption: [Double] = []
+    
+    //list of absorption lists
+    var allAbsorptionLists: [[Double]]?
+    
+    //total absorption values for room
+    var sum125Hz: Double = 0.0
+    var sum250Hz: Double = 0.0
+    var sum500Hz: Double = 0.0
+    var sum1kHz: Double = 0.0
+    var sum2kHz: Double = 0.0
+    var sum4kHz: Double = 0.0
+    
+    //list of total absorptions
+    var allTotalAbsorptions: [Double] = []
+    var allRt60Results: [Double] = []
     
     
     // ** MODES **
@@ -103,7 +119,6 @@ class Calculator {
             
         }
         return heightModesRounded!
-        
     }
     
     //Width
@@ -162,10 +177,9 @@ class Calculator {
         return depthModesRounded!
     }
     
-    
     // ** ABSORPTION **
     // WALL
-    func getWallAbsorption (roomHeight: Double, roomWidth: Double, roomDepth: Double, roomVolume: Double, wallMaterial: String) -> [Double] {
+    func getWallAbsorption (roomHeight: Double, roomWidth: Double, roomDepth: Double, roomVolume: Double, wallMaterial: String, doorArea: Double, windowArea: Double) -> [Double] {
         //get coefficients list from db
             //managed object context
             let moc = DataController().managedObjectContext
@@ -184,13 +198,12 @@ class Calculator {
                 if (result.count > 0) {
                     for coefficient in result {
                         if coefficient.type == wallMaterial {
-//                            print("fault- \(coefficient)")
+                            print("fault- \(coefficient)")
                             
                             if let type = coefficient.valueForKey("type") {
                                 print("Material type: \(type)")
                             }
                             self.wallMaterial = (coefficient as! Coefficient)
-                            print("results: \(coefficient)")
                             
                             let wallMatType = self.wallMaterial?.type
                             print("wall material: \(wallMatType! as String)")
@@ -219,6 +232,10 @@ class Calculator {
                             let depth = Double(roomDepth)
                             let width = Double(roomWidth)
                             let volume = Double(roomVolume)
+                            let dArea = Double(doorArea)
+                            let wArea = Double(windowArea)
+                            let subtractedArea = dArea + wArea
+                            print("subtracted area: \(subtractedArea)")
                             print("height: \(height), depth: \(depth), width: \(width), volume: \(volume)")
                             
                             //wall area1 = h * l
@@ -226,7 +243,7 @@ class Calculator {
                             //wall area2 = h * w
                             let wallArea2 = height * width
                             // total area = (area1 + area2) * 2
-                            let totalArea = (wallArea1 + wallArea2) * 2 as Double
+                            let totalArea = (((wallArea1 + wallArea2) * 2) - subtractedArea)
                             print("total area: \(totalArea)")
                             
                             //for coefficient in list..
@@ -237,11 +254,10 @@ class Calculator {
                                 //absorption = total area * coefficient
                                 let absorption = (totalArea * c)
                                 print("wall absorption: \(absorption)")
-                                //rt60 = (0.049 * volume) / absorption
-                                let rt60 = (0.049 * volume) / absorption
-                                print("wall rt60: \(rt60)")
-                                //add to absorption list
-                                wallAbsorption.append(rt60)
+                                let roundedAbsorption = round(absorption * 100) / 100
+                                print("rounded wall absorption: \(roundedAbsorption)")
+//                                //add to absorption list
+                                wallAbsorption.append(roundedAbsorption)
                             }
                         } else {
                             continue
@@ -332,11 +348,10 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("floor absorption: \(absorption)")
-                            //rt60 = (0.049 * volume) / absorption
-                            let rt60 = (0.049 * volume) / absorption
-                            print("floor rt60: \(rt60)")
+                            let roundedAbsorption = round(absorption * 100) / 100
+                            print("rounded floor absorption: \(roundedAbsorption)")
                             //add to absorption list
-                            floorAbsorption.append(rt60)
+                            floorAbsorption.append(roundedAbsorption)
                         }
                     } else {
                         continue
@@ -425,11 +440,10 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("ceiling absorption: \(absorption)")
-                            //rt60 = (0.049 * volume) / absorption
-                            let rt60 = (0.049 * volume) / absorption
-                            print("ceiling rt60: \(rt60)")
+                            let roundedAbsorption = round(absorption * 100) / 100
+                            print("rounded ceiling absorption: \(roundedAbsorption)")
                             //add to absorption list
-                            ceilingAbsorption.append(rt60)
+                            ceilingAbsorption.append(roundedAbsorption)
                         }
                     } else {
                         continue
@@ -448,7 +462,6 @@ class Calculator {
         }
         self.ceilingAbsorption = ceilingAbsorption
         return ceilingAbsorption
-
     }
     
     // DOOR
@@ -510,6 +523,7 @@ class Calculator {
                         let totalArea = width * height
                         
                         print("total door area: \(totalArea)")
+                        self.doorArea = totalArea
                         
                         //for coefficient in list..
                         for coefficient in doorCoefficients {
@@ -519,11 +533,10 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("door absorption: \(absorption)")
-                            //rt60 = (0.049 * volume) / absorption
-                            let rt60 = (0.049 * volume) / absorption
-                            print("door rt60: \(rt60)")
+                            let roundedAbsorption = round(absorption * 100) / 100
+                            print("rounded door abosrption: \(roundedAbsorption)")
                             //add to absorption list
-                            doorAbsorption.append(rt60)
+                            doorAbsorption.append(roundedAbsorption)
                         }
                     } else {
                         continue
@@ -542,7 +555,6 @@ class Calculator {
         }
         self.doorAbsorption = doorAbsorption
         return doorAbsorption
-        
     }
     
     // WINDOW
@@ -565,7 +577,7 @@ class Calculator {
             if (result.count > 0) {
                 for coefficient in result {
                     if coefficient.type == windowMaterial {
-                        
+                        //if material matches result, get variables
                         if let type = coefficient.valueForKey("type") {
                             print("Material type: \(type)")
                         }
@@ -600,10 +612,10 @@ class Calculator {
                         let volume = Double(roomVolume)
                         print("window height: \(height), width: \(width), room volume: \(volume)")
                         
-                        //door area
+                        //window area
                         let totalArea = width * height
-                        
                         print("total window area: \(totalArea)")
+                        self.windowArea = totalArea
                         
                         //for coefficient in list..
                         for coefficient in windowCoefficients {
@@ -613,11 +625,10 @@ class Calculator {
                             //absorption = total area * coefficient
                             let absorption = (totalArea * c)
                             print("window absorption: \(absorption)")
-                            //rt60 = (0.049 * volume) / absorption
-                            let rt60 = (0.049 * volume) / absorption
-                            print("window rt60: \(rt60)")
+                            let roundedAbsorption = round(absorption * 100) / 100
+                            print("rounded window rt60: \(roundedAbsorption)")
                             //add to absorption list
-                            windowAbsorption.append(rt60)
+                            windowAbsorption.append(roundedAbsorption)
                         }
                     } else {
                         continue
@@ -636,36 +647,163 @@ class Calculator {
         }
         self.windowAbsorption = windowAbsorption
         return windowAbsorption
-
+    }
+    
+    //populate total freq absorptions
+    func createAbsorptionList(){
+        var all: [[Double]] = []
+        if self.doorAbsorption != nil {
+            all.append(self.doorAbsorption!)
+            print("door absorption list: \(self.doorAbsorption)")
+            print("door absorption values added to total list")
+        }
+        if self.windowAbsorption != nil {
+            all.append(self.windowAbsorption!)
+            print("window absorption list: \(self.windowAbsorption)")
+            print("window absorption values added to total list")
+        }
+        if self.wallAbsorption != nil {
+            all.append(self.wallAbsorption!)
+            print("wall absorption list: \(self.wallAbsorption)")
+            print("wall absorption values added to total list")
+        }
+        if self.floorAbsorption != nil {
+            all.append(self.floorAbsorption!)
+            print("floor absorption list: \(self.floorAbsorption)")
+            print("floor absorption values added to total list")
+        }
+        if self.ceilingAbsorption != nil {
+            all.append(self.ceilingAbsorption!)
+            print("ceiling absorption list: \(self.ceilingAbsorption)")
+            print("ceiling absorption values added to total list")
+        }
         
+        //set local variable
+        self.allAbsorptionLists = all
+        print("all absorption lists: \(self.allAbsorptionLists)")
+        getAllEverything()
+    }
+    
+    func getAllEverything() {
+        compile125HzAbsorptions()
+        compile250HzAbsorptions()
+        compile500HzAbsorptions()
+        compile1kHzAbsorptions()
+        compile2kHzAbsorptions()
+        compile4kHzAbsorptions()
     }
     
     // 125Hz
-    func get125HzAbsorption() {
-        //let 125sum = 125HzList.reduce(0, combine: +)
+    func compile125HzAbsorptions() {
+        let all = self.allAbsorptionLists
+        print("all: \(all)")
+        var sum125 = 0.0
+        for list in all! {
+            print("list: \(list)")
+            let new125 = list[0]
+            sum125 += new125
+            print("new sum for 125Hz: \(sum125)")
+        }
+        self.sum125Hz = sum125
+        print("125Hz total absorption: \(self.sum125Hz)")
     }
     
     // 250Hz
-    func get250HzAbsorption() {
+    func compile250HzAbsorptions() {
+        let all = self.allAbsorptionLists
+        var sum250 = 0.0
+        for list in all! {
+            let new250 = list[1]
+            sum250 += new250
+            print("new sum for 250Hz: \(sum250)")
+        }
+        self.sum250Hz = sum250
+        print("250Hz total absorption: \(self.sum250Hz)")
         
     }
     
     // 500Hz
-    func get500HzAbsorption() {
-        
+    func compile500HzAbsorptions() {
+        let all = self.allAbsorptionLists
+        var sum500 = 0.0
+        for list in all! {
+            let new500 = list[2]
+            sum500 += new500
+            print("new sum for 500Hz: \(sum500)")
+        }
+        self.sum500Hz = sum500
+        print("500Hz total absorption: \(self.sum500Hz)")
     }
     
     // 1kHz
-    func get1kHzAbsorption() {
-        
+    func compile1kHzAbsorptions() {
+        let all = self.allAbsorptionLists
+        var sum1k = 0.0
+        for list in all! {
+            let new1k = list[3]
+            sum1k += new1k
+            print("new sum for 250Hz: \(sum1k)")
+        }
+        self.sum1kHz = sum1k
+        print("1kHz total absorption: \(self.sum1kHz)")
     }
     
     // 2kHz
-    func get2kHzAbsorption (){
-        
+    func compile2kHzAbsorptions(){
+        let all = self.allAbsorptionLists
+        var sum2k = 0.0
+        for list in all! {
+            let new2k = list[4]
+            sum2k += new2k
+            print("new sum for 2kHz: \(sum2k)")
+        }
+        self.sum2kHz = sum2k
+        print("2kHz total absorption: \(self.sum2kHz)")
     }
+    
     // 4kHz
-    func get4kHzAbsorption (){
-        
+    func compile4kHzAbsorptions(){
+        let all = self.allAbsorptionLists
+        var sum4k = 0.0
+        for list in all! {
+            let new4k = list[5]
+            sum4k += new4k
+            print("new sum for 4kHz: \(sum4k)")
+        }
+        self.sum4kHz = sum4k
+         print("4kHz total absorption: \(self.sum4kHz)")
+    }
+    
+    func getAllAbsorptionLists() -> [[Double]]{
+        return self.allAbsorptionLists!
+    }
+    
+    func makeListOfTotalAbsorption() -> [Double] {
+        self.allTotalAbsorptions.append(self.sum125Hz)
+        self.allTotalAbsorptions.append(self.sum250Hz)
+        self.allTotalAbsorptions.append(self.sum500Hz)
+        self.allTotalAbsorptions.append(self.sum1kHz)
+        self.allTotalAbsorptions.append(self.sum2kHz)
+        self.allTotalAbsorptions.append(self.sum4kHz)
+        if self.allAbsorptionLists != nil {
+            self.allAbsorptionLists?.append(self.allTotalAbsorptions)
+            for list in self.allAbsorptionLists! {
+                print("absorption list from list of lists: \(list)")
+            }
+        }
+        return self.allTotalAbsorptions
+    }
+    
+    func getTotalRt60(roomVolume: Double) -> [Double] {
+        var allRt60: [Double] = []
+        let volume = roomVolume
+        for total in self.allTotalAbsorptions {
+            let rt60 = (0.049 * volume) / total
+            print("rt60: \(rt60)")
+            allRt60.append(rt60)
+        }
+        self.allRt60Results = allRt60
+        print("all rt60 results: \(allRt60)")
+        return allRt60
     }
 }
