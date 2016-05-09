@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-@IBDesignable class RoomViewController: UIViewController {
+@IBDesignable class RoomViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     //Room Properties View
     @IBOutlet weak var roomNameLabel: UILabel!
     @IBOutlet weak var roomHeightLabel: UILabel!
@@ -199,6 +199,8 @@ import CoreData
         self.allRt60Results = calc.getTotalRt60(self.roomVolume!)
         print("returned final rt60 calculations: \(self.allRt60Results)")
         
+        calc.makeListOfTotalAbsorption()
+        
         //populate RT60 labels
         populateRT60Labels()
     }
@@ -301,5 +303,30 @@ import CoreData
             rt602kHzLabel.text = String(twokHzRounded)
             rt604kHzLabel.text = String(fourkHzRounded)
         }
+    }
+    
+    //TableView
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.allAbsorptionLists.count
+    }
+    //Populate cells
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("AbsorptionCell", forIndexPath: indexPath) as! rt60TableViewCell
+        let surfaceAbsorptions = self.allAbsorptionLists
+        let surface = surfaceAbsorptions[indexPath.row]
+        let surfaceNames = ["Wall", "Floor", "Ceiling", "Door", "Window", "Total"]
+        cell.surfaceLabel.text = surfaceNames[indexPath.row]
+        cell.oneTwoFiveHzLabel.text = String(surface[0])
+        cell.twoFiveZeroHzLabel.text = String(surface[1])
+        cell.fiveHundredHzLabel.text = String(surface[2])
+        cell.onekHzLabel.text = String(surface[3])
+        cell.twokHzLabel.text = String(surface[4])
+        cell.fourkHzLabel.text = String(surface[5])
+        
+        return cell
     }
 }
