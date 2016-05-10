@@ -11,7 +11,7 @@ import CoreData
 
 class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    
+    //UI Outlets
     @IBOutlet weak var roomNameTextField: UITextField!
     @IBOutlet weak var roomHeightTextField: UITextField!
     @IBOutlet weak var roomWidthTextField: UITextField!
@@ -28,6 +28,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var ceilingMaterialPickerView: UIPickerView!
     @IBOutlet weak var doorMaterialPickerView: UIPickerView!
     
+    //Room ans sentName variables
     var newRoom: Room?
     var sentName: String?
     
@@ -54,20 +55,23 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var doorMaterial: String?
     var windowMaterial: String?
     
-    // pickerView variables
+    // pickerView default selections
     var selectedRoom: Int = -1
     var selectedFloorMat = 0
     var selectedWallMat = 0
     var selectedCeilingMat = 0
     var selectedDoorMat = 0
     
+    //CoreData path for Room
     var roomDBPath = NSString()
     
+    //material lists for picker views
     var floorMaterialList = ["Concrete on tile", "Linoleum/vinyl tile on concrete", "Wood on joists", "Parquet on concrete", "Carpet on concrete", "Carpet on foam"]
     var wallMaterialList = ["Brick: unglazed", "Brick: unglazed & painted", "Concrete block - coarse", "Concrete block - painted", "Curtain: 10 oz/sq yd fabric molleton", "Curtain: 14 oz/sq yd fabric molleton", "Curtain: 18 oz/sq yd fabric molleton", "Fiberglass: 2\'\' 703 no airspace", "Fiberglass: spray 5\'\'", "Fiberglass: spray 1\'\'", "Fiberglass: 2\'\' rolls", "Foam: Sonex 2\'\'", "Foam: SDG 3\'\'", "Foam: SDG 4\'\'", "Foam: polyur. 1\'\'", "Foam: polyur. 1/2\'\'", "Glass: 1/4\'\' plate large", "Glass: window", "Plaster: smooth on tile/brick", "Plaster: rough on lath", "Marble/Tile", "Sheetrock 1/2\" 16\" on center", "Wood: 3/8\'\' plywood panel"]
     var ceilingMaterialList = ["Acoustic Tiles", "Acoustic Ceiling Tiles", "Fiberglass: 2\'\' 703 no airspace", "Fiberglass: spray 5\"", "Fiberglass: spray 1\"", "Fiberglass: 2\'\' rolls", "Wood", "Foam: Sonex 2\'\'", "Foam: SDG 3\'\'", "Foam: SDG 4\'\'", "Foam: polyur. 1\'\'", "Foam: polyur. 1/2\'\'", "Plaster: smooth on tile/brick", "Plaster: rough on lath", "Sheetrock 1/2” 16\" on center", "Wood: 3/8\" plywood panel"]
     var doorMaterialList = ["Wood", "Glass: 1/4\'\' plate large"]
     
+    /** Saves new room to CoreData */
     func saveRoom() {
         
         //create an instance of managedObjectContext
@@ -89,14 +93,14 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         let windowWidth = Double(windowWidthTextField.text!)!
         let windowArea = Double(windowHeight * windowWidth)
         
-        //pickerView materials
-        
+        //set materials to pickerView materials
         let floorMaterial = floorMaterialList[selectedFloorMat]
         let wallMaterial = wallMaterialList[selectedWallMat]
         let ceilingMaterial = ceilingMaterialList[selectedCeilingMat]
         let doorMaterial = doorMaterialList[selectedDoorMat]
         let windowMaterial = "Glass: window"
         
+        //set values for new room
         newRoom!.setValue(roomName, forKey: "roomName")
         newRoom!.setValue(roomWidth, forKey: "roomWidth")
         newRoom!.setValue(roomHeight, forKey: "roomHeight")
@@ -121,12 +125,8 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             fatalError("Failure to save context: \(error)")
         }
         
-        print("newRoom name: " + String(newRoom?.roomName))
         roomID = (newRoom?.objectID)
         sentName = (newRoom?.roomName)
-        print("sending id: \(String(roomID))")
-        
-//        performSegueWithIdentifier("saveRoom", sender: self)
     }
     
     override func viewDidLoad() {

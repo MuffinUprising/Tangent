@@ -44,9 +44,6 @@ import CoreData
     
     let calc = Calculator()
     
-    //rt60 result view
-    
-    
     //recommendation view
     @IBOutlet weak var rt60Input: UITextField!
     
@@ -77,21 +74,43 @@ import CoreData
     var doorMaterial: String?
     var windowMaterial: String?
 
+    /** This is the current room */
     var selectedRoom: Room?
     
+    /** List of modes based on the height of the room */
     var heightModes: [Double] = []
+    /** List of modes based on the width of the room */
     var widthModes: [Double] = []
+    /** List of modes based on the depth of the room */
     var depthModes: [Double] = []
     
+    /** list of total absorption of wall surfaces at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var wallAbsorption: [Double] = []
+    /** list of total absorption of floor surface at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var floorAbsorption: [Double] = []
+    /** list of total absorption of ceiling surface at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var ceilingAbsorption: [Double] = []
+    /** list of total absorption of door surface at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var doorAbsorption: [Double] = []
+    /** list of total absorption of window surface at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var windowAbsorption: [Double] = []
+    /** list of all surface lists at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var allAbsorptionLists: [[Double]] = []
+    /** Sum of all absorption for all surfaces at all frequencies.
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var allAbsorptions: [Double] = []
+    /** Reverb totals for the room at all frequencies (in seconds).
+     125Hz, 250Hz, 500Hz, 1kHz, 2kHz, and 4kHz, in that order. */
     var allRt60Results: [Double] = []
     
+    
+    //future development
     @IBAction func getRecommendation(sender: AnyObject) {
         
     }
@@ -99,6 +118,7 @@ import CoreData
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*! Fetch Room objects from CoreData */
         //managed object context
         let moc = DataController().managedObjectContext
         //initialize fetch request
@@ -118,7 +138,6 @@ import CoreData
                     if room.roomName == roomName {
                         selectedRoom = (room as! Room)
                         populateRoomDetailView()
-                        
                     }
                 }
             }
@@ -206,7 +225,7 @@ import CoreData
     }
     
     //** MODE VIEW **
-    // show and hide help view
+    /*! show and hide help view */
     @IBAction func modeViewTap(gesture: UITapGestureRecognizer?) {
         if (isModeHelpViewShowing) {
             // hide help
@@ -218,7 +237,7 @@ import CoreData
         isModeHelpViewShowing = !isModeHelpViewShowing
     }
     
-    // ** ROOM DETAIL VIEW **
+    //*! ** ROOM DETAIL VIEW ** */
     func populateRoomDetailView() {
         
         // set local variables that are needed for processing
