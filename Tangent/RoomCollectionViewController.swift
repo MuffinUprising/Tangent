@@ -31,9 +31,8 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-//        addCoefficientsToDB()
-//        clearCoefficientDB()
+        clearCoefficientDB()
+        addCoefficientsToDB()
         fetchRooms()
 //        fetchCoefficients()
     }
