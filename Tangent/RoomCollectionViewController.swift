@@ -17,7 +17,6 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     private let sectionInsets = UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0)
     var roomID: NSManagedObjectID?
     var roomName: String?
-    var cvfl: UICollectionViewFlowLayout?
     var room: Room?
     var helper: DataHelper?
     
@@ -32,9 +31,9 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cvfl?.sectionHeadersPinToVisibleBounds = true
-//        clearCoefficientDB()
+       
 //        addCoefficientsToDB()
+//        clearCoefficientDB()
         fetchRooms()
 //        fetchCoefficients()
     }
@@ -99,7 +98,17 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
-    //parse csv file, convert Hz values to NSNumber(Double) and add to CoreData
+    /** Parses CSV file containing coefficient values and adds them to CoreData 
+     
+     1. Intitialize path to CSV file
+     2. Set constant for CSV file
+     3. initialize CoreData managed object context
+     4. Set delimiter to comma
+     5. Iterate through CSV file
+     5. Set values for material type and absorption coefficients for all frequencies
+     6. Save to CoreData
+     
+     */
     func addCoefficientsToDB(){
         
         
@@ -192,11 +201,17 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
                 fatalError("failure saving Coefficient DB: \(error)")
             }
         }
-        
     }
 
     
     // retrieve rooms
+    /** Returns room from CoreData to be displayed in the CollectionView
+     
+     1. set up managed object context
+     2. iterate through rooms in CoreData
+     3. Append to roomCollection[Room]
+     
+     */
     func fetchRooms() {
         let moc = DataController().managedObjectContext
         let roomFetch = NSFetchRequest(entityName: "Room")
@@ -205,18 +220,11 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
             let fetchedRoom = try moc.executeFetchRequest(roomFetch) as! [Room]
 
             for room in fetchedRoom {
-                
-//                print("fault- \(room)")
-                
                 if let name = room.valueForKey("roomName") {
                     print("Room Name: \(name)")
                     roomCollection.append(String(name))
                 }
-//                print("results: \(room)")
-                
-                
             }
-            
         } catch {
             fatalError("Failed to fetch room: \(error)")
         }
@@ -244,7 +252,7 @@ class RoomCollectionViewController: UIViewController, UICollectionViewDelegate, 
         }
     }
     
-    //retrieve coefficients
+    //retrieve coefficients - also for testing: not used in this view
     func fetchCoefficients() {
         let moc = DataController().managedObjectContext
         let coefficientFetch = NSFetchRequest(entityName: "Coefficient")

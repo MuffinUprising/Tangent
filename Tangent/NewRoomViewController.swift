@@ -28,7 +28,7 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var ceilingMaterialPickerView: UIPickerView!
     @IBOutlet weak var doorMaterialPickerView: UIPickerView!
     
-    //Room ans sentName variables
+    //Room and sentName variables
     var newRoom: Room?
     var sentName: String?
     
@@ -44,15 +44,23 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var windowWidth: Double?
     
     //calculated variables
+    /** New Room calculated volume */
     var roomVolume: Double?
+    /** New Room calculated door area */
     var doorArea: Double?
+    /** New Room calculated window area */
     var windowArea: Double?
     
     //pickerView variables
+    /** User-selected wall material */
     var wallMaterial: String?
+    /** User-selected floor material */
     var floorMaterial: String?
+    /** User-selected ceiling material */
     var ceilingMaterial: String?
+    /** User-selected door material */
     var doorMaterial: String?
+    /** Window material - always glass */
     var windowMaterial: String?
     
     // pickerView default selections
@@ -71,7 +79,15 @@ class NewRoomViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var ceilingMaterialList = ["Acoustic Tiles", "Acoustic Ceiling Tiles", "Fiberglass: 2\'\' 703 no airspace", "Fiberglass: spray 5\"", "Fiberglass: spray 1\"", "Fiberglass: 2\'\' rolls", "Wood", "Foam: Sonex 2\'\'", "Foam: SDG 3\'\'", "Foam: SDG 4\'\'", "Foam: polyur. 1\'\'", "Foam: polyur. 1/2\'\'", "Plaster: smooth on tile/brick", "Plaster: rough on lath", "Sheetrock 1/2” 16\" on center", "Wood: 3/8\" plywood panel"]
     var doorMaterialList = ["Wood", "Glass: 1/4\'\' plate large"]
     
-    /** Saves new room to CoreData */
+    /** Saves new room to CoreData 
+     
+     1. Creates a managed object context
+     2. Creates an entity description
+     3. Saves user input to local memory
+     4. Sets values for new Room
+     5. Saves new room to CoreData
+     
+     */
     func saveRoom() {
         
         //create an instance of managedObjectContext
